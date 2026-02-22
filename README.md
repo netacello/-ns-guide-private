@@ -4,7 +4,7 @@ Research and analysis workspace for Neurosteer's EEG-based cognitive assessment 
 
 ## What This Directory Produces
 
-1. **Brain Age model** (`brain_age_model_v3-0-0.json`) — Ridge regression model predicting brain age from 20 EEG features. Trained here, copied to `lib/report_data/assets/` in the OSP.
+1. **Brain Age model** (`brain_age_model_v2-0-1.json`) — ElasticNet-selected linear regression model predicting brain age from 20 EEG + behavioral features. Trained here, copied to `lib/report_data/assets/` in the OSP.
 
 2. **Physician Guide** (`Neurosteer_Physician_Guide_v6.md` / `.docx`) — Comprehensive clinical reference document describing all 16 metrics, Brain Age, validation data, and interpretation guidelines.
 
@@ -27,16 +27,22 @@ Research and analysis workspace for Neurosteer's EEG-based cognitive assessment 
 
 Full details with population norms, flag thresholds, and clinical descriptions: see `metric_reference.md`.
 
-## Brain Age Model (v3-0-0)
+## Brain Age Model
 
-- **Method**: Ridge regression (alpha=100) trained on healthy participants only
-- **Features (20)**: TBR, BAR, Beta, Gamma, A0, responsetime — per task (d1, d2, nb1) and session-wide means
+### Production: v2-0-1 (current)
+- **Method**: ElasticNet feature selection + LinearRegression, trained on full population
+- **Features (20)**: Response time, accuracy, A0, T2, Delta, Alpha, Gamma — per task and between-task contrasts
 - **Required tasks**: d1, d2, nb1, nb2, rest_closed (4 of 5 minimum)
-- **Performance**: CV r=0.41, MAE=11.3 years (N=280 healthy)
-- **Bias correction**: Age-dependent (slope=-0.83, intercept=49.6), healthy gap centers at ~0
-- **Clinical group gaps** (age-matched 60-85): Healthy +0.3, MCI +6.4, Dementia +7.2 years
-- **Error margin**: +/- 6.4 years
-- **Model file**: `brain_age_model_v3-0-0.json`
+- **Performance**: CV r=0.65, MAE=13.2 years (N=653)
+- **Bias correction**: Age-dependent (slope=-0.61, intercept=29.8), healthy gap centers at ~0
+- **Clinical group gaps** (age-matched 60-85): Healthy +1.5, MCI +7.0, Dementia +16.8 years
+- **Error margin**: +/- 7.5 years
+- **Model file**: `brain_age_model_v2-0-1.json` (in OSP assets)
+
+### Retired: v3-0-0
+- Ridge regression (alpha=100), EEG-only features (TBR, BAR, Beta, Gamma, A0), trained on healthy-only (N=280)
+- CV r=0.41, MAE=11.3 — reverted because raw scores clustered around ~58 for all participants regardless of brain health, making the model unreliable when real age is unavailable
+- Model JSON kept in OSP assets for reference; `brain_age.py` retains backward-compatible v3 code (derived features, MeanAll)
 
 ## Files
 
@@ -55,7 +61,7 @@ Full details with population norms, flag thresholds, and clinical descriptions: 
 ### Models & References
 | File | Description |
 |------|-------------|
-| `brain_age_model_v3-0-0.json` | Brain Age model v3: weights, scaler stats, imputation means, bias correction |
+| `brain_age_model_v3-0-0.json` | Brain Age model v3 (retired): weights, scaler stats, imputation means, bias correction |
 | `metric_reference.md` | Complete metric reference with population norms and clinical descriptions |
 
 ### Physician Guide
@@ -69,8 +75,18 @@ Full details with population norms, flag thresholds, and clinical descriptions: 
 
 ## Relationship to OSP
 
-1. **Brain Age Model**: `brain_age_model_v3-0-0.json` is copied to `lib/report_data/assets/` in the OSP. The OSP's `brain_age.py` loads and applies it during report generation. Supports derived features (TBR, BAR) and MeanAll aggregation.
+1. **Brain Age Model**: `brain_age_model_v2-0-1.json` in `lib/report_data/assets/` in the OSP. The OSP's `brain_age.py` loads and applies it during report generation. Code also supports derived features (TBR, BAR) and MeanAll aggregation for future model versions.
 
 2. **Config**: Metric definitions (task groupings, features, ranges) are in `lib/report_data/config.py` in the OSP.
 
 3. **RCM Template**: The report template in `rcm_bundle_windows/` uses population norms and clinical interpretations derived from this research data.
+
+## Version History
+
+| Date | Change |
+|------|--------|
+| 2026-02-22 | Reverted Brain Age to v2-0-1; v3 EEG-only model unreliable without age input. Updated physician guide with new gap figure (5 groups including young healthy). |
+| 2026-02-19 | Brain Age v3-0-0: Ridge regression on healthy-only with derived TBR/BAR features |
+| 2026-02-18 | Cognitive-load-aligned metrics revision: 16 per-task metrics + Brain Age v2 |
+| 2026-02-17 | Physician Guide v6: reordered sections, updated VC9 behavioral correlation, all figures regenerated |
+| 2026-02-05 | Brain Age v1-0-0: initial ElasticNet model |
