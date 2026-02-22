@@ -80,7 +80,7 @@ Raw EEG signals undergo a multi-stage processing pipeline:
 
 4. **Metric computation:** Per-task averages of each feature are computed across defined cognitive load categories, producing the 16 metrics reported.
 
-5. **Brain Age estimation:** A regularized Ridge regression model (20 features) predicts chronological age from the combination of spectral, transformer, and behavioral features. Bias correction ensures accurate estimates across the full age range.
+5. **Brain Age estimation:** A linear regression model (ElasticNet-selected, 20 features) predicts chronological age from spectral, transformer, and behavioral features. Bias correction ensures accurate estimates across the full age range.
 
 ### Why AI Matters Here
 
@@ -166,52 +166,52 @@ Each metric was validated through multiple independent approaches:
 
 ### AI-Derived Functional Brain Age
 
-**What it is:** The Brain Age model uses a regularized linear regression (bias-corrected Ridge regression) with 20 features extracted from the assessment to predict the patient's chronological age. The "Brain Age Gap" — the difference between predicted brain age and actual chronological age — provides an intuitive summary of overall brain function.
+**What it is:** The Brain Age model uses a linear regression (bias-corrected, ElasticNet feature selection) with 20 features extracted from the assessment to predict the patient's chronological age. The "Brain Age Gap" — the difference between predicted brain age and actual chronological age — provides an intuitive summary of overall brain function.
 
 **Model details:**
-- **Architecture:** Ridge regression (L2 regularization, alpha=100) trained on healthy participants only
-- **Features (20):** Includes EEG band powers (Beta, Gamma), derived ratios (TBR = Theta-Beta, BAR = Beta-Alpha), deep learning component A0, and response time — each computed per task (d1, d2, nb1) and as session-wide means
-- **Training:** 10-fold cross-validated on N=280 healthy participants with age-dependent bias correction (slope=-0.83, intercept=49.6)
-- **Prediction confidence range:** +/- 6.4 years (model-reported error margin based on training set residuals)
+- **Architecture:** ElasticNet feature selection + LinearRegression, trained on the full participant population
+- **Features (20):** Includes response time and accuracy (per task and task-deltas), EEG band powers (Delta, Alpha, Gamma), deep learning components (A0, T2) — each computed per specific task or as between-task contrasts
+- **Training:** 10-fold cross-validated on N=653 participants with age-dependent bias correction (slope=-0.61, intercept=29.8)
+- **Prediction confidence range:** +/- 7.5 years (model-reported error margin based on training set residuals)
 - **Required tasks:** d1, d2, nb1, nb2, rest_closed (at least 4 of 5 core tasks must be present)
 
-**Model performance (production model v3-0-0, healthy-only training, N=280):**
-- **Pearson r = 0.41** (10-fold cross-validated on healthy participants)
-- **MAE = 11.3 years** (mean absolute error)
+**Model performance (production model v2-0-1, full population training, N=653):**
+- **Pearson r = 0.65** (10-fold cross-validated)
+- **MAE = 13.2 years** (mean absolute error)
 - After bias correction, the mean gap for healthy participants centers at approximately 0
 
-Brain age prediction from single-channel prefrontal EEG is inherently more challenging than MRI-based approaches (which typically achieve r>0.90 with whole-brain imaging). The current model provides a clinically useful directional indicator — especially for detecting accelerated brain aging (positive gap) — but should not be interpreted with the same precision as neuroimaging-derived brain age estimates. The +/- 6.4 year confidence range should be considered when interpreting individual results.
+Brain age prediction from single-channel prefrontal EEG is inherently more challenging than MRI-based approaches (which typically achieve r>0.90 with whole-brain imaging). The current model provides a clinically useful directional indicator — especially for detecting accelerated brain aging (positive gap) — but should not be interpreted with the same precision as neuroimaging-derived brain age estimates. The +/- 7.5 year confidence range should be considered when interpreting individual results.
 
 **Brain Age Gap by Clinical Group (age-matched, 60–85 years):**
 
 | Group | N | Mean Gap | Interpretation |
 |-------|---|----------|----------------|
-| Healthy | ~120 | +0.3 years | Near expected age (bias-corrected baseline) |
-| MCI | ~70 | +6.4 years | Brain appears moderately older |
-| Dementia | ~30 | +7.2 years | Brain appears older — consistent with impairment |
+| Healthy | 61 | +0.7 years | Near expected age (bias-corrected baseline) |
+| MCI | 45 | +7.9 years | Brain appears moderately older |
+| Dementia | 13 | +16.2 years | Brain appears substantially older — consistent with impairment |
 
-The age-matched analysis (restricting to 60–85 years, where all three clinical groups are well-represented) reveals a clear **7-year gradient** from healthy to dementia. The v3 model is trained exclusively on healthy participants and bias-corrected so the healthy group centers near zero. The progressive increase in brain age gap from Healthy → MCI → Dementia is clinically meaningful and consistent with the neurodegenerative continuum.
+The age-matched analysis (restricting to 60–85 years, where all three clinical groups are well-represented) reveals a clear **16-year gradient** from healthy to dementia. The model is bias-corrected so the healthy group centers near zero. The progressive increase in brain age gap from Healthy (+0.7) → MCI (+7.9) → Dementia (+16.2) is clinically meaningful and consistent with the neurodegenerative continuum.
 
 ![Figure 11: Brain Age Gap by group](physician_guide_figures/fig11_brain_age_gap.png)
-*Figure 6. Brain Age Gap (predicted minus chronological age) by clinical group, age-matched to 60–85 years for fair comparison. The healthy group shows a mean gap of +0.3 years (near expected, bias-corrected baseline), MCI shows +6.4 years (brain appears moderately older), and the dementia group shows +7.2 years (brain appears older) — a 7-year gradient from healthy to dementia.*
+*Figure 6. Brain Age Gap (predicted minus chronological age) by clinical group, age-matched to 60–85 years for fair comparison. The healthy group shows a mean gap of +0.7 years (near expected, bias-corrected baseline), MCI shows +7.9 years (brain appears moderately older), and the dementia group shows +16.2 years (brain appears substantially older) — a 16-year gradient from healthy to dementia.*
 
 **Top predictive features (by coefficient magnitude):**
 
 | Feature | Coefficient | Interpretation |
 |---------|-------------|----------------|
-| TBR mean (all tasks) | -1.66 | Higher theta-beta ratio → younger brain age |
-| Response time on d1 | +1.59 | Slower response → older brain age |
-| BAR on d1 | +1.33 | Higher beta-alpha ratio → older brain age |
-| BAR mean (all tasks) | +1.23 | Higher stress reactivity across tasks → older brain age |
-| Gamma mean (all tasks) | +1.07 | Higher gamma power → older brain age |
-| TBR on d1 | -0.94 | Higher theta-beta ratio on simple task → younger brain age |
+| Alpha at rest | +6.18 | Higher alpha power at rest → older brain age |
+| Delta at rest | -5.73 | Higher delta power at rest → younger brain age |
+| Accuracy on d2 | -4.11 | Higher accuracy → younger brain age |
+| A0 on d1 | +3.34 | Higher cognitive resource allocation → older brain age |
+| Accuracy on nb2 | -2.93 | Higher accuracy on working memory → younger brain age |
+| Response time on nb2 | +2.82 | Slower response on working memory → older brain age |
 
 ![Figure 10: Brain age scatter](physician_guide_figures/fig10_brain_age.png)
-*Figure 7. Brain Age model (production v3-0-0): predicted brain age vs. chronological age in the healthy reference population (N=206, age >= 25, high-quality recordings). The model achieves r=0.71, capturing age-related brain changes using 20 EEG and behavioral features including TBR, BAR, Gamma, Beta, A0, and response time. The dashed gray line shows perfect prediction (y=x); the red line shows the linear fit.*
+*Figure 7. Brain Age model (production v2-0-1): predicted brain age vs. chronological age in the healthy reference population (N=206, age >= 25, high-quality recordings). The model captures age-related brain changes using 20 EEG and behavioral features including Alpha, Delta, A0, T2, accuracy, and response time. The dashed gray line shows perfect prediction (y=x); the red line shows the linear fit.*
 
 **Clinical interpretation:**
 - **Brain Age < Chronological Age:** Brain function is "younger" than expected — positive sign
-- **Brain Age = Chronological Age (+/- 6.4 years):** Normal range
+- **Brain Age = Chronological Age (+/- 7.5 years):** Normal range
 - **Brain Age > Chronological Age:** Brain function is "older" than expected — may warrant clinical attention
 
 **Report presentation:** The report displays Brain Age as a simple number with a confidence range (e.g., "Brain Age: 62 years, range 55–69"). When the patient's actual age is available, a Brain Age Gap is computed and displayed.
@@ -784,7 +784,7 @@ The following 11 clinically validated metrics contribute to the total score:
 
 7. **Effect sizes and sample sizes:** While many metrics show large effect sizes (d > 0.8), the dementia subsample is small (N=33). Approximate 95% confidence intervals for the reported effect sizes are wide — for example, d=1.44 with N_healthy=306 and N_dementia=33 has a 95% CI of approximately [0.80, 2.08]. Results should be confirmed in larger, independently recruited cohorts.
 
-8. **Brain Age accuracy:** The production Brain Age model (v3-0-0) achieves r=0.41 (cross-validated) and MAE=11.3 years on healthy participants. While substantially better than chance, this is less precise than MRI-based approaches (r>0.90). The +/- 6.4 year confidence range should be considered when interpreting individual results. Note that the model does not detect subcortical pathology (e.g., Parkinson's disease), as it is trained on prefrontal EEG features.
+8. **Brain Age accuracy:** The production Brain Age model (v2-0-1) achieves r=0.65 (cross-validated) and MAE=13.2 years. While substantially better than chance, this is less precise than MRI-based approaches (r>0.90). The +/- 7.5 year confidence range should be considered when interpreting individual results. Note that the model does not detect subcortical pathology (e.g., Parkinson's disease), as it is trained on prefrontal EEG features.
 
 9. **Dementia subtype specificity:** The validation data do not distinguish between Alzheimer's disease, vascular dementia, Lewy body dementia, frontotemporal dementia, or mixed pathology. EEG signatures differ across dementia subtypes, and the current metrics reflect general cognitive impairment rather than etiology-specific patterns.
 
@@ -803,7 +803,7 @@ The following 11 clinically validated metrics contribute to the total score:
 ### Neurosteer System & Validation
 
 1. Neurosteer Ltd. Technical documentation: Single-channel EEG signal processing pipeline. Internal validation reports, 2024–2026.
-2. Brain Age Model v3.0.0: Ridge regression (alpha=100) with bias correction. 20-feature model (TBR, BAR, Beta, Gamma, A0, responsetime) trained on 280 healthy participants. Error margin: +/- 6.4 years.
+2. Brain Age Model v2.0.1: ElasticNet feature selection + LinearRegression with bias correction. 20-feature model (RT, accuracy, A0, T2, Delta, Alpha, Gamma) trained on 653 participants. Error margin: +/- 7.5 years.
 
 ### EEG & Cognitive Decline
 
