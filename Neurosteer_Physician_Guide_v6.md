@@ -207,7 +207,7 @@ The age-matched analysis (restricting to 60–85 years, where all three clinical
 | Response time on nb2 | +2.82 | Slower response on working memory → older brain age |
 
 ![Figure 10: Brain age scatter](physician_guide_figures/fig10_brain_age.png)
-*Figure 7. Brain Age model (production v2-0-1): predicted brain age vs. chronological age in the healthy reference population (N=206, age >= 25, high-quality recordings). The model captures age-related brain changes using 20 EEG and behavioral features including Alpha, Delta, A0, T2, accuracy, and response time. The dashed gray line shows perfect prediction (y=x); the red line shows the linear fit.*
+*Figure 7. Brain Age model (production v2-0-1): predicted brain age vs. chronological age (N=363, age >= 25, high-quality recordings). The model achieves r=0.85, capturing age-related brain changes using 20 EEG and behavioral features including Alpha, Delta, A0, T2, accuracy, and response time. The dashed gray line shows perfect prediction (y=x); the red line shows the linear fit.*
 
 **Clinical interpretation:**
 - **Brain Age < Chronological Age:** Brain function is "younger" than expected — positive sign
