@@ -24,10 +24,11 @@
 14. [Error Rate](#14-error-rate)
 15. [Inter-Metric Relationships](#15-inter-metric-relationships)
 16. [Interpreting the Report](#16-interpreting-the-report)
-17. [Clinical Scoring System](#17-clinical-scoring-system)
-18. [Sample Report Interpretations](#18-sample-report-interpretations)
-19. [Limitations & Clinical Context](#19-limitations--clinical-context)
-20. [References](#20-references)
+17. [Population Norms and Age-Stratified Reference Ranges](#17-population-norms-and-age-stratified-reference-ranges)
+18. [Clinical Scoring System](#18-clinical-scoring-system)
+19. [Sample Report Interpretations](#19-sample-report-interpretations)
+20. [Limitations & Clinical Context](#20-limitations--clinical-context)
+21. [References](#21-references)
 
 ---
 ## 1. Introduction
@@ -668,7 +669,63 @@ A needle within the green zone = within healthy range. A needle outside the gree
 
 ---
 
-## 17. Clinical Scoring System
+## 17. Population Norms and Age-Stratified Reference Ranges
+
+### How Reference Ranges Were Determined
+
+Each metric's healthy reference range (the green zone on the gauge charts) was derived through a systematic, data-driven process:
+
+1. **Population basis:** The normative database comprises 977 participants across multiple clinical sites, including 306 clinically verified healthy adults (MMSE >= 24), 85 MCI, 33 dementia, and 553 healthy volunteers without MMSE classification (presumed healthy).
+
+2. **Healthy reference extraction:** For each metric at each cognitive load level, the P5 (5th percentile) and P80 (80th percentile) of the healthy reference population were computed. These define the "normal" range:
+   - **P5** = the value below which only 5% of healthy participants fall (lower bound)
+   - **P80** = the value below which 80% of healthy participants fall (upper bound)
+   - The asymmetric choice (P5 vs P80 rather than P5/P95) reflects a conservative flagging approach: we flag the top 20% rather than only the top 5%, prioritizing clinical sensitivity over specificity.
+
+3. **Age stratification:** Because brain metrics change naturally with age, population norms are stratified into **4 age groups**:
+
+| Age Group | Age Range | Description |
+|-----------|-----------|-------------|
+| Age18to39 | 18–39 years | Young adults |
+| Age40to59 | 40–59 years | Middle-aged adults |
+| Age60to79 | 60–79 years | Older adults |
+| Age80plus | 80+ years | Elderly |
+
+Each age group has its own P5 and P80 thresholds for every metric. When a patient's report is generated, the system automatically selects the appropriate age group based on the patient's chronological age, ensuring that the displayed healthy range reflects age-appropriate norms.
+
+4. **Age range selection:** The 4 age ranges were determined through analysis of age-related trends in the data (see Section 15, Figure 11). Key considerations:
+   - The 18–39 range captures young adults whose EEG features are relatively stable
+   - The 40–59 range captures the transition period where age-related changes begin
+   - The 60–79 range covers the primary clinical population where cognitive screening is most relevant
+   - The 80+ range accounts for the distinct normative profile of the oldest adults
+
+### How Each Patient's Result Is Presented
+
+For each metric, the patient's value is displayed relative to their age-appropriate healthy range:
+
+- **Within the green zone (P5–P80):** The patient's value falls within the range seen in 75% of healthy individuals of their age. This is considered normal.
+- **Outside the green zone but within the flag threshold:** Borderline — the value is atypical but not necessarily clinically significant.
+- **Past the flag marker:** The value exceeds the clinical threshold, indicating a potential concern that warrants clinical attention.
+
+The flag thresholds and their directions (above or below) were selected based on the clinical meaning of each metric:
+- **A0, BAR, RT, Error:** Flagged when **above** P80 (higher values = worse)
+- **TBR:** Flagged when **below** P5 (lower values = worse)
+- **ST4, T2, VC9:** Informational only — no flag threshold, as these metrics do not consistently discriminate between clinical groups
+
+### Example: Age-Stratified A0 at Rest
+
+| Age Group | P5 (Lower Bound) | P80 (Upper Bound) | Flag Direction |
+|-----------|-------------------|--------------------|----------------|
+| 18–39 | 60.7 | 79.2 | Above P80 |
+| 40–59 | 61.2 | 78.8 | Above P80 |
+| 60–79 | 62.0 | 80.1 | Above P80 |
+| 80+ | 63.5 | 81.4 | Above P80 |
+
+A 35-year-old patient with A0 Rest = 75 would be within normal range (green zone: 60.7–79.2). The same value for a 75-year-old patient would also be normal (green zone: 62.0–80.1). But an A0 Rest = 82 would be flagged for both age groups.
+
+---
+
+## 18. Clinical Scoring System
 
 ### Physician Scoring Table
 
@@ -716,7 +773,7 @@ The following 11 clinically validated metrics contribute to the total score:
 
 ---
 
-## 18. Sample Report Interpretations
+## 19. Sample Report Interpretations
 
 ### Case 1: Healthy 45-Year-Old
 
@@ -768,7 +825,7 @@ The following 11 clinically validated metrics contribute to the total score:
 
 ---
 
-## 19. Limitations & Clinical Context
+## 20. Limitations & Clinical Context
 
 ### Important Considerations
 
@@ -800,7 +857,7 @@ The following 11 clinically validated metrics contribute to the total score:
 
 ---
 
-## 20. References
+## 21. References
 
 ### Neurosteer System & Validation
 
