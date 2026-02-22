@@ -1,0 +1,30 @@
+# Data files (too large for git)
+*.pkl
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+_*.py
+
+# Binary documents (rebuild from markdown)
+*.docx
+
+# Report page screenshots
+page_*.png
+page_*.jpg
+
+# Windows reserved names
+nul
+
+# Checkpoints
+.ipynb_checkpoints/
+
+# Claude settings
+.claude/
