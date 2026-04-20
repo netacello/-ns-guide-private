@@ -39,12 +39,14 @@
 <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation">
   <span></span><span></span><span></span>
 </button>
+<button class="rail-reopen-btn" id="rail-reopen-btn" aria-label="Open navigation" title="Open navigation">&#8250;</button>
 <div class="nav-overlay" id="nav-overlay"></div>
 
 <div class="shell">
 
   <!-- ═════════ LEFT RAIL ═════════ -->
   <aside class="rail" id="rail">
+    <button class="rail-toggle-btn" id="rail-toggle-btn" aria-label="Collapse navigation" title="Collapse navigation">&#8249;</button>
     <div class="brand">
       <img src="assets/logo.png" alt="Neurosteer" style="width:140px;height:auto;display:block;margin-bottom:6px;">
       <div class="brand-name" style="font-size:11px;font-weight:400;color:var(--stone);letter-spacing:0.04em;text-transform:uppercase;">Physician Guide</div>
@@ -1386,6 +1388,19 @@
   overlay.addEventListener('click', closeNav);
   rail.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){ if(window.innerWidth <= 900) closeNav(); });
+  });
+
+  /* Desktop rail collapse */
+  var shell = document.querySelector('.shell');
+  var toggleBtn = document.getElementById('rail-toggle-btn');
+  var reopenBtn = document.getElementById('rail-reopen-btn');
+  toggleBtn.addEventListener('click', function(){
+    shell.classList.add('rail-collapsed');
+    reopenBtn.classList.add('visible');
+  });
+  reopenBtn.addEventListener('click', function(){
+    shell.classList.remove('rail-collapsed');
+    reopenBtn.classList.remove('visible');
   });
 })();
 </script>
