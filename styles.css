@@ -45,7 +45,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin:0; padding:0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 52px; }
 body{
   background: var(--paper);
   color: var(--ink);
@@ -1181,9 +1181,13 @@ a:hover { border-bottom-color: var(--red-ink); }
   background: rgba(10,10,12,0.45);
   z-index: 1050;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.25s;
 }
-.nav-overlay.active { opacity: 1; }
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* ────── RESPONSIVE ────── */
 @media (max-width: 1080px) {
@@ -1195,7 +1199,8 @@ a:hover { border-bottom-color: var(--red-ink); }
 
 @media (max-width: 900px) {
   .hamburger-btn { display: flex; }
-  .nav-overlay { display: block; }
+  .nav-overlay { display: block; pointer-events: none; }
+  .nav-overlay.active { pointer-events: auto; }
   .rail-toggle-btn { display: none !important; }
   .rail-reopen-btn { display: none !important; }
 

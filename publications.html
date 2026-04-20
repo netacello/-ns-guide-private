@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Neurosteer · Publications</title>
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 <style>
 /* ── Publications-specific styles ────────────────────────────── */
 .pub-list { list-style: none; padding: 0; margin: 0; }
@@ -438,7 +438,24 @@ function toggleAbstract(btn) {
   btn.addEventListener('click', function(){ rail.classList.contains('nav-open') ? closeNav() : openNav(); });
   overlay.addEventListener('click', closeNav);
   rail.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ if(window.innerWidth <= 900) closeNav(); });
+    a.addEventListener('click', function(e){
+      if(window.innerWidth > 900) return;
+      var href = a.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        e.preventDefault();
+        var target = document.querySelector(href);
+        closeNav();
+        if(target){
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+              target.scrollIntoView({behavior:'smooth',block:'start'});
+            });
+          });
+        }
+      } else {
+        closeNav();
+      }
+    });
   });
 
   /* Desktop rail collapse */
