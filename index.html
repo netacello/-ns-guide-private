@@ -36,6 +36,11 @@
 </head>
 <body>
 
+<button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" id="nav-overlay"></div>
+
 <div class="shell">
 
   <!-- ═════════ LEFT RAIL ═════════ -->
@@ -1360,5 +1365,29 @@
 
 <script src="js/data.js"></script>
 <script src="js/figures.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var rail = document.getElementById('rail');
+  var overlay = document.getElementById('nav-overlay');
+  function openNav(){
+    rail.classList.add('nav-open');
+    btn.classList.add('nav-open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    rail.classList.remove('nav-open');
+    btn.classList.remove('nav-open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function(){ rail.classList.contains('nav-open') ? closeNav() : openNav(); });
+  overlay.addEventListener('click', closeNav);
+  rail.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ if(window.innerWidth <= 900) closeNav(); });
+  });
+})();
+</script>
 </body>
 </html>
