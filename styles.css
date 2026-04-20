@@ -313,8 +313,8 @@ a:hover { border-bottom-color: var(--red-ink); }
 
 .chap-head{
   display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 24px;
+  grid-template-columns: 76px 1fr;
+  gap: 20px;
   align-items: end;
   margin-bottom: 30px;
   padding-bottom: 16px;
@@ -336,10 +336,10 @@ a:hover { border-bottom-color: var(--red-ink); }
   font-family: var(--f-sans);
   font-style: normal;
   font-weight: 800;
-  font-size: 68px;
+  font-size: 48px;
   color: var(--ink);
   letter-spacing: -0.02em;
-  margin-top: 8px;
+  margin-top: 6px;
   text-transform: none;
   line-height: 0.85;
 }
@@ -1227,7 +1227,8 @@ a:hover { border-bottom-color: var(--red-ink); }
 
   .chap { padding: 44px 20px 48px; }
   .topbar { padding: 12px 16px 12px 64px; }
-  .chap-head { grid-template-columns: 1fr; gap: 10px; }
+  .chap-head { grid-template-columns: 60px 1fr; gap: 14px; }
+  .sec-id { font-size: 38px; }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-headline { font-size: 40px; }
   .chap-title { font-size: 30px; }
