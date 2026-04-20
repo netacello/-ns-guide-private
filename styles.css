@@ -1247,3 +1247,38 @@ a:hover { border-bottom-color: var(--red-ink); }
 .figure.figure-mount { padding: 8px; background: var(--card); }
 .figure.figure-mount > div { width: 100%; min-height: 380px; }
 .plotly-chart { width: 100%; min-height: 380px; }
+
+/* ────── REPORT VIEW PHOTO LIFE ────── */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-4px) rotate(0.15deg); }
+  66%       { transform: translateY(-2px) rotate(-0.1deg); }
+}
+
+/* Hero photo: slow ambient float */
+.hero-photo-col .figure.figure-img {
+  animation: float-gentle 9s ease-in-out infinite;
+  will-change: transform;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(10,10,12,0.10);
+  transition: box-shadow 0.5s ease;
+}
+.hero-photo-col .figure.figure-img:hover {
+  animation-play-state: paused;
+  box-shadow: 0 10px 36px rgba(10,10,12,0.18);
+}
+
+/* All figure images: subtle hover lift */
+.figure.figure-img {
+  overflow: hidden;
+  border-radius: 3px;
+}
+.figure.figure-img img {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.4s ease;
+}
+.figure.figure-img:hover img {
+  transform: translateY(-3px) scale(1.009);
+  filter: brightness(1.03);
+}
