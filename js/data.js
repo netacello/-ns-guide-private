@@ -7683,6 +7683,194 @@ const NS_FIG_DATA = {
           "Mild Dementia — High<br>CA: 37.824"
         ],
         "hoverinfo": "text"
+      },
+      {
+        "type": "box",
+        "name": "F-DOPA+ PD (Rest)",
+        "y": [
+          36.633,
+          47.106,
+          36.43,
+          47.531,
+          31.714,
+          54.02,
+          46.164,
+          48.728,
+          44.388,
+          39.483,
+          53.954,
+          45.271,
+          44.544,
+          50.449,
+          65.488,
+          50.817,
+          39.127,
+          53.634,
+          43.04,
+          68.578,
+          62.659,
+          42.963,
+          51.247,
+          35.902
+        ],
+        "x": [
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest",
+          "Rest"
+        ],
+        "marker": {
+          "color": "#7B5EA7",
+          "size": 4,
+          "symbol": "circle"
+        },
+        "line": {
+          "color": "#7B5EA7"
+        },
+        "legendgroup": "F-DOPA+ PD",
+        "showlegend": true,
+        "boxmean": true,
+        "hovertext": [
+          "F-DOPA+ PD — Rest<br>CA: 36.633",
+          "F-DOPA+ PD — Rest<br>CA: 47.106",
+          "F-DOPA+ PD — Rest<br>CA: 36.43",
+          "F-DOPA+ PD — Rest<br>CA: 47.531",
+          "F-DOPA+ PD — Rest<br>CA: 31.714",
+          "F-DOPA+ PD — Rest<br>CA: 54.02",
+          "F-DOPA+ PD — Rest<br>CA: 46.164",
+          "F-DOPA+ PD — Rest<br>CA: 48.728",
+          "F-DOPA+ PD — Rest<br>CA: 44.388",
+          "F-DOPA+ PD — Rest<br>CA: 39.483",
+          "F-DOPA+ PD — Rest<br>CA: 53.954",
+          "F-DOPA+ PD — Rest<br>CA: 45.271",
+          "F-DOPA+ PD — Rest<br>CA: 44.544",
+          "F-DOPA+ PD — Rest<br>CA: 50.449",
+          "F-DOPA+ PD — Rest<br>CA: 65.488",
+          "F-DOPA+ PD — Rest<br>CA: 50.817",
+          "F-DOPA+ PD — Rest<br>CA: 39.127",
+          "F-DOPA+ PD — Rest<br>CA: 53.634",
+          "F-DOPA+ PD — Rest<br>CA: 43.04",
+          "F-DOPA+ PD — Rest<br>CA: 68.578",
+          "F-DOPA+ PD — Rest<br>CA: 62.659",
+          "F-DOPA+ PD — Rest<br>CA: 42.963",
+          "F-DOPA+ PD — Rest<br>CA: 51.247",
+          "F-DOPA+ PD — Rest<br>CA: 35.902"
+        ],
+        "hoverinfo": "text"
+      },
+      {
+        "type": "box",
+        "name": "F-DOPA+ PD (High)",
+        "y": [
+          34.344,
+          44.848,
+          45.984,
+          54.855,
+          34.771,
+          48.813,
+          46.699,
+          40.702,
+          42.575,
+          34.179,
+          53.904,
+          62.865,
+          47.031,
+          53.875,
+          61.229,
+          50.59,
+          37.666,
+          49.347,
+          40.183,
+          74.386,
+          58.283,
+          41.234,
+          50.217,
+          35.315
+        ],
+        "x": [
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High",
+          "High"
+        ],
+        "marker": {
+          "color": "#7B5EA7",
+          "size": 4,
+          "symbol": "circle-open"
+        },
+        "line": {
+          "color": "#7B5EA7"
+        },
+        "legendgroup": "F-DOPA+ PD",
+        "showlegend": false,
+        "boxmean": true,
+        "hovertext": [
+          "F-DOPA+ PD — High<br>CA: 34.344",
+          "F-DOPA+ PD — High<br>CA: 44.848",
+          "F-DOPA+ PD — High<br>CA: 45.984",
+          "F-DOPA+ PD — High<br>CA: 54.855",
+          "F-DOPA+ PD — High<br>CA: 34.771",
+          "F-DOPA+ PD — High<br>CA: 48.813",
+          "F-DOPA+ PD — High<br>CA: 46.699",
+          "F-DOPA+ PD — High<br>CA: 40.702",
+          "F-DOPA+ PD — High<br>CA: 42.575",
+          "F-DOPA+ PD — High<br>CA: 34.179",
+          "F-DOPA+ PD — High<br>CA: 53.904",
+          "F-DOPA+ PD — High<br>CA: 62.865",
+          "F-DOPA+ PD — High<br>CA: 47.031",
+          "F-DOPA+ PD — High<br>CA: 53.875",
+          "F-DOPA+ PD — High<br>CA: 61.229",
+          "F-DOPA+ PD — High<br>CA: 50.59",
+          "F-DOPA+ PD — High<br>CA: 37.666",
+          "F-DOPA+ PD — High<br>CA: 49.347",
+          "F-DOPA+ PD — High<br>CA: 40.183",
+          "F-DOPA+ PD — High<br>CA: 74.386",
+          "F-DOPA+ PD — High<br>CA: 58.283",
+          "F-DOPA+ PD — High<br>CA: 41.234",
+          "F-DOPA+ PD — High<br>CA: 50.217",
+          "F-DOPA+ PD — High<br>CA: 35.315"
+        ],
+        "hoverinfo": "text"
       }
     ],
     "layout": {
@@ -8520,11 +8708,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Healthy",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           1900.933,
           2165.818,
           1602.057
@@ -8540,6 +8730,7 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
+            null,
             68.295,
             71.212,
             44.925
@@ -8553,6 +8744,7 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
+          "",
           "Healthy RT<br>Load: Low<br>RT: 1900.933 ms",
           "Healthy RT<br>Load: Mid<br>RT: 2165.818 ms",
           "Healthy RT<br>Load: High<br>RT: 1602.057 ms"
@@ -8564,11 +8756,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Healthy (error)",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           0.073,
           0.219,
           0.256
@@ -8587,6 +8781,7 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
+          "",
           "Healthy Error<br>Load: Low<br>Error: 0.073",
           "Healthy Error<br>Load: Mid<br>Error: 0.219",
           "Healthy Error<br>Load: High<br>Error: 0.256"
@@ -8598,11 +8793,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "MCI",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           2563.665,
           2388.285,
           1530.329
@@ -8618,6 +8815,7 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
+            null,
             113.834,
             110.122,
             93.353
@@ -8631,6 +8829,7 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
+          "",
           "MCI RT<br>Load: Low<br>RT: 2563.665 ms",
           "MCI RT<br>Load: Mid<br>RT: 2388.285 ms",
           "MCI RT<br>Load: High<br>RT: 1530.329 ms"
@@ -8642,11 +8841,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "MCI (error)",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           0.138,
           0.387,
           0.339
@@ -8665,6 +8866,7 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
+          "",
           "MCI Error<br>Load: Low<br>Error: 0.138",
           "MCI Error<br>Load: Mid<br>Error: 0.387",
           "MCI Error<br>Load: High<br>Error: 0.339"
@@ -8676,11 +8878,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Mild Dementia",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           3503.205,
           3451.962,
           2035.292
@@ -8696,6 +8900,7 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
+            null,
             288.747,
             273.531,
             639.004
@@ -8709,6 +8914,7 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
+          "",
           "Mild Dementia RT<br>Load: Low<br>RT: 3503.205 ms",
           "Mild Dementia RT<br>Load: Mid<br>RT: 3451.962 ms",
           "Mild Dementia RT<br>Load: High<br>RT: 2035.292 ms"
@@ -8720,11 +8926,13 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Mild Dementia (error)",
         "x": [
+          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
+          null,
           0.259,
           0.488,
           0.406
@@ -8743,6 +8951,7 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
+          "",
           "Mild Dementia Error<br>Load: Low<br>Error: 0.259",
           "Mild Dementia Error<br>Load: Mid<br>Error: 0.488",
           "Mild Dementia Error<br>Load: High<br>Error: 0.406"
