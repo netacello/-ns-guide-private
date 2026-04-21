@@ -8817,7 +8817,10 @@ const NS_FIG_DATA = {
             "size": 11
           }
         },
-        "autorange": true
+        "range": [
+          40,
+          63.126000000000005
+        ]
       },
       "title": {
         "text": "ME working memory engagement across N-back tasks (healthy participants)",
