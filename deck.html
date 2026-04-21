@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neurosteer · Physician Training Deck</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0891B2;--teal-d:#0C6F94;--teal-bg:#E0F2FE;
+  --ink:#0F172A;--slate:#475569;--stone:#94A3B8;
+  --light:#F8FAFC;--rule:#E2E8F0;--white:#FFFFFF;
+  --green:#15803D;--green-bg:#DCFCE7;
+  --amber:#B45309;--amber-bg:#FEF3C7;
+  --red:#B91C1C;--red-bg:#FEE2E2;
+  --f:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html,body{height:100%;overflow:hidden;background:#0a0f1e;font-family:var(--f)}
+
+/* ── Deck engine ── */
+.wrap{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
+.deck{width:1280px;height:720px;position:relative;transform-origin:top left;flex-shrink:0}
+.slide{position:absolute;inset:0;background:var(--white);display:none;flex-direction:column;overflow:hidden}
+.slide.on{display:flex}
+
+/* ── Slide anatomy ── */
+.sh{display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:var(--teal);height:48px;flex-shrink:0}
+.sh-logo{height:22px;filter:brightness(0)invert(1)}
+.sh-sec{color:rgba(255,255,255,.75);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.sb{flex:1;padding:26px 44px 18px;display:flex;flex-direction:column;overflow:hidden}
+.sf{display:flex;align-items:center;justify-content:space-between;padding:6px 36px;border-top:1px solid var(--rule);background:var(--light);height:32px;flex-shrink:0}
+.sf-t{font-size:10px;color:var(--stone);letter-spacing:.04em}
+
+/* ── Typography ── */
+.ey{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.t1{font-size:34px;font-weight:800;color:var(--ink);line-height:1.15;letter-spacing:-.025em;margin-bottom:16px;flex-shrink:0}
+.t1.sm{font-size:26px;margin-bottom:12px}
+.lead{font-size:13.5px;line-height:1.65;color:var(--slate);margin-bottom:12px}
+
+/* ── Layouts ── */
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;min-height:0}
+.col3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;flex:1;min-height:0}
+.col4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;flex:1;min-height:0}
+
+/* ── Metric card ── */
+.mc{background:var(--light);border:1px solid var(--rule);border-radius:7px;padding:13px 15px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.mc-h{display:flex;align-items:center;gap:7px}
+.badge{background:var(--teal);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:.04em}
+.cond{font-size:10px;color:var(--slate);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.mc-n{font-size:12px;font-weight:700;color:var(--ink)}
+.mc-s{font-size:11px;color:var(--teal);font-family:var(--mono);font-weight:600}
+.mc-d{font-size:11.5px;color:var(--slate);line-height:1.5;flex:1}
+.flag{background:var(--red-bg);border-left:3px solid var(--red);padding:5px 9px;border-radius:0 4px 4px 0;font-size:10.5px;color:var(--red);line-height:1.4;font-weight:600}
+.rec{background:var(--teal-bg);padding:5px 9px;border-radius:4px;font-size:10.5px;color:var(--teal-d);line-height:1.4}
+.info{background:var(--amber-bg);padding:5px 9px;border-radius:4px;font-size:10.5px;color:var(--amber);line-height:1.4;font-weight:600}
+
+/* ── Data table ── */
+.dt{width:100%;border-collapse:collapse;font-size:12px}
+.dt th{background:var(--teal);color:#fff;padding:6px 10px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.04em}
+.dt td{padding:6px 10px;border-bottom:1px solid var(--rule);color:var(--slate)}
+.dt tr:last-child td{border-bottom:none}
+.dt tr:nth-child(even) td{background:var(--light)}
+.dt .r{text-align:right;font-family:var(--mono);color:var(--ink)}
+.dt .g{color:var(--green);font-weight:700}
+.dt .a{color:var(--amber);font-weight:700}
+.dt .rd{color:var(--red);font-weight:700}
+
+/* ── Interp table ── */
+.it{width:100%;border-collapse:collapse;font-size:12px}
+.it td{padding:7px 10px;border-bottom:1px solid var(--rule);color:var(--slate)}
+.it td:first-child{font-family:var(--mono);font-weight:600;color:var(--ink);white-space:nowrap;width:130px}
+.it tr:last-child td{border-bottom:none}
+
+/* ── Steps ── */
+.steps{display:flex;gap:12px;flex:1}
+.step{flex:1;background:var(--light);border:1px solid var(--rule);border-radius:7px;padding:14px}
+.step-n{font-size:10px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.step-t{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.step-d{font-size:11.5px;color:var(--slate);line-height:1.5}
+
+/* ── Load bar ── */
+.lbar{display:flex;gap:6px;margin-top:10px;flex-shrink:0}
+.ls{flex:1;text-align:center;padding:7px 4px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.ls.r{background:#E0F2FE;color:#0369A1}
+.ls.l{background:#D1FAE5;color:#065F46}
+.ls.m{background:#FEF3C7;color:#92400E}
+.ls.h{background:#FEE2E2;color:#991B1B}
+
+/* ── Score card ── */
+.sc-pair{display:flex;gap:16px}
+.sc{flex:1;border:2px solid var(--rule);border-radius:8px;padding:14px 16px;text-align:center}
+.sc.ok{border-color:var(--green)}
+.sc.bad{border-color:var(--red)}
+.sc-n{font-size:42px;font-weight:900;line-height:1;letter-spacing:-.04em}
+.sc.ok .sc-n{color:var(--green)}
+.sc.bad .sc-n{color:var(--red)}
+.sc-sub{font-size:11px;color:var(--stone);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.sc-d{font-size:11px;color:var(--stone);margin-top:3px}
+
+/* ── Patient snapshot ── */
+.pt{display:flex;gap:20px;background:var(--light);border-radius:7px;padding:11px 18px;margin-bottom:12px;flex-shrink:0}
+.pt-f .pl{font-size:9px;color:var(--stone);text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+.pt-f .pv{font-size:17px;font-weight:800;color:var(--ink);margin-top:1px}
+.pt-f .pv.red{color:var(--red)}
+
+/* ── NFB blocks ── */
+.nfb{display:flex;gap:18px;flex:1}
+.nb{flex:1;border:2px solid var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.nb.cog{border-color:var(--teal)}
+.nb.str{border-color:var(--amber)}
+.nb-l{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.nb.cog .nb-l{color:var(--teal)}
+.nb.str .nb-l{color:var(--amber)}
+.nb-t{font-size:15px;font-weight:700;color:var(--ink)}
+.nb-d{font-size:12px;color:var(--slate);line-height:1.6}
+.nb-d strong{color:var(--ink)}
+
+/* ── Value props ── */
+.vps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.vp{background:var(--light);border:1px solid var(--rule);border-radius:7px;padding:12px 14px}
+.vp-n{font-size:9px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.vp-t{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.vp-d{font-size:11px;color:var(--slate);line-height:1.5}
+
+/* ── Chips ── */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px;flex-shrink:0}
+.chip{background:var(--teal-bg);color:var(--teal-d);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px}
+
+/* ── Title slide ── */
+.slide.title-s{background:var(--ink)!important}
+.title-s .sh{background:rgba(8,145,178,.25)}
+.title-s .sf{background:rgba(255,255,255,.04);border-top-color:rgba(255,255,255,.1)}
+.t-eye{color:rgba(8,145,178,.9);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.t-hl{font-size:58px;font-weight:900;color:#fff;letter-spacing:-.035em;line-height:1.05}
+.t-sub{font-size:17px;color:rgba(255,255,255,.6);margin-top:10px;font-weight:400}
+.t-stats{display:flex;gap:44px;margin-top:30px}
+.t-sv{font-size:42px;font-weight:900;color:var(--teal);line-height:1;letter-spacing:-.02em}
+.t-sl{font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+
+/* ── Controls ── */
+.ctrl{position:fixed;bottom:14px;right:20px;display:flex;align-items:center;gap:8px;z-index:99}
+.cb{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;backdrop-filter:blur(4px)}
+.cb:hover{background:rgba(255,255,255,.22)}
+.cb:disabled{opacity:.3;cursor:default}
+.cct{font-size:12px;color:rgba(255,255,255,.6);font-family:var(--mono);min-width:44px;text-align:center}
+
+/* ── Misc helpers ── */
+.box{background:var(--teal-bg);border-radius:6px;padding:10px 13px;font-size:11.5px;color:var(--teal-d);line-height:1.55}
+.img-fit{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+
+/* ── Print / PDF ── */
+@media print{
+  html,body{overflow:visible;height:auto;background:#fff}
+  .wrap{display:block;width:100%;height:auto}
+  .deck{width:100%;height:auto;transform:none!important;position:static}
+  .slide{position:relative;display:flex!important;width:100%;height:185mm;page-break-after:always;overflow:hidden}
+  .ctrl{display:none}
+  @page{size:A4 landscape;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+<div class="deck" id="deck">
+
+<!-- ═══ SLIDE 1: TITLE ═══ -->
+<div class="slide title-s on">
+  <div class="sh">
+    <img src="assets/logo.png" class="sh-logo" alt="Neurosteer">
+    <span class="sh-sec">Physician Training Guide · April 2026</span>
+  </div>
+  <div class="sb" style="justify-content:center;padding:44px 80px;gap:0">
+    <div class="t-eye">hdrEEG™ Cognitive Assessment</div>
+    <div class="t-hl">The Brain<br>Stress Test.</div>
+    <div class="t-sub">Physician Training Guide — Precision Brain Health in 25 Minutes</div>
+    <div class="t-stats">
+      <div><div class="t-sv">977</div><div class="t-sl">Participants</div></div>
+      <div><div class="t-sv">16</div><div class="t-sl">Brain Metrics</div></div>
+      <div><div class="t-sv">5</div><div class="t-sl">Clinical Profiles</div></div>
+      <div><div class="t-sv">25<span style="font-size:22px">min</span></div><div class="t-sl">Assessment</div></div>
+      <div><div class="t-sv">9<span style="font-size:22px">+</span></div><div class="t-sl">Peer-Reviewed</div></div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-t" style="color:rgba(255,255,255,.35)">For physician reference only · Neurosteer Ltd. 2026</span>
+    <span class="sf-t" style="color:rgba(255,255,255,.35)">NSR-PG-04-2026 · Rev 2.1</span>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2: THE ASSESSMENT ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 1 · The Assessment</span></div>
+  <div class="sb">
+    <div class="ey">The Neurosteer Assessment</div>
+    <h2 class="t1">A cognitive stress test for the brain.</h2>
+    <p class="lead">Just as a resting ECG misses ischemia under exercise — a resting EEG misses the cognitive reserve deficits that emerge under demand.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">01 · Setup</div><div class="step-t">Single electrode</div><div class="step-d">One disposable hdrEEG™ strip on the forehead (Fp1–Fp2). No gel, no cap. Ready in under 2 minutes.</div></div>
+      <div class="step"><div class="step-n">02 · Tasks</div><div class="step-t">Audio-guided tasks</div><div class="step-d">Musical and verbal cues escalate from simple digit detection through demanding 3-back working memory. Response clicker.</div></div>
+      <div class="step"><div class="step-n">03 · Analysis</div><div class="step-t">AI pipeline</div><div class="step-d">Transformer network trained on 10,000+ sessions extracts 16 brain metrics in real time, per cognitive load level.</div></div>
+      <div class="step"><div class="step-n">04 · Report</div><div class="step-t">Instant report</div><div class="step-d">Age-stratified scoring, Executive Function Age, flagged metrics with interpretations, and a personalized NFB protocol.</div></div>
+    </div>
+    <div class="lbar">
+      <div class="ls r">Rest (eyes closed)</div>
+      <div class="ls l">Low Load · 0-back</div>
+      <div class="ls m">Moderate Load · 1-back</div>
+      <div class="ls h">High Load · 2-back · 3-back</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 3: EXECUTIVE FUNCTION AGE ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 2 · Executive Function Age</span></div>
+  <div class="sb">
+    <div class="ey">AI-Derived Brain Age</div>
+    <h2 class="t1">Executive Function Age.</h2>
+    <div class="chips">
+      <span class="chip">AI-derived</span><span class="chip">r = 0.85</span><span class="chip">MAE 13.2 yr</span><span class="chip">Validated N = 363 healthy</span>
+    </div>
+    <div class="col2" style="gap:28px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Age Gap by Clinical Group</div>
+        <table class="dt">
+          <thead><tr><th>Group</th><th>Age Range</th><th class="r">N</th><th class="r">Mean Gap</th></tr></thead>
+          <tbody>
+            <tr><td>Healthy young</td><td>20–39</td><td class="r">236</td><td class="r g">+1.5 yr</td></tr>
+            <tr><td>Healthy older</td><td>60–85</td><td class="r">61</td><td class="r g">+1.5 yr</td></tr>
+            <tr><td>MCI</td><td>60–85</td><td class="r">85</td><td class="r a">+7.0 yr</td></tr>
+            <tr><td>Mild Dementia</td><td>60–85</td><td class="r">33</td><td class="r rd">+16.8 yr</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Interpretation Thresholds</div>
+          <table class="it">
+            <tbody>
+              <tr><td>Gap &lt; −7.5 yr</td><td style="color:var(--green);font-weight:600">Positive reserve indicator</td></tr>
+              <tr><td>Gap ± 7.5 yr</td><td>Within expected range</td></tr>
+              <tr><td>+7.5 to +15 yr</td><td style="color:var(--amber);font-weight:600">Elevated — serial monitoring</td></tr>
+              <tr><td>Gap &gt; +15 yr</td><td style="color:var(--red);font-weight:600">Consistent with MCI / dementia</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box"><strong>Trainable biomarker.</strong> Behavioral features dominate the model — Executive Function Age responds to neurofeedback. Serial assessments quantify whether treatment is closing the gap.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 4: NE ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 3 · Neuromarker: Neural Effort (NE)</span></div>
+  <div class="sb">
+    <div class="ey">Neural Performance Efficiency Profile</div>
+    <h2 class="t1 sm">Neural Effort (NE) — Lower = more efficient processing.</h2>
+    <div class="col3">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">NE</span><span class="cond">At Rest</span></div>
+        <div class="mc-n">Neural efficiency at rest</div>
+        <div class="mc-s">MMSE r = −0.34 · d = +0.91</div>
+        <div class="mc-d">Healthy brains show low NE at rest — the default-mode network disengages cleanly. Elevated resting NE = chronic compensatory over-recruitment.</div>
+        <div class="flag">⚠ Impaired DMN disengagement · assess for anxiety, sleep disruption, or early cognitive decline</div>
+        <div class="rec">NFB resting NE reduction · sleep assessment · mindfulness protocols</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">NE</span><span class="cond">Moderate Load</span></div>
+        <div class="mc-n">Resource use at moderate demand</div>
+        <div class="mc-s">MMSE r = −0.34 · d = +1.27</div>
+        <div class="mc-d">NE should increase moderately under 1-back — appropriate mobilization. Elevated at rest AND moderate load = brain has no efficiency reserve remaining.</div>
+        <div class="flag">⚠ Cognitive strain at moderate demand · reaching reserve limit early</div>
+        <div class="rec">NFB targeting NE reduction under moderate load</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">NE</span><span class="cond">High Load</span></div>
+        <div class="mc-n">Efficiency under peak demand</div>
+        <div class="mc-s">MMSE r = −0.44 · d = +1.44 ★</div>
+        <div class="mc-d">Some NE rise under 2-back/3-back is healthy. The clinical sign: <strong>disproportionate elevation</strong> — the brain working harder but accomplishing less. Strongest MMSE correlate.</div>
+        <div class="flag">⚠ Cognitive reserve failure under peak demand — largest effect size in battery (d = +1.44)</div>
+        <div class="rec">High-load NFB protocol · serial 3-month reassessment</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 5: TBR & BAR ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 4 · Neuromarkers: TBR · BAR</span></div>
+  <div class="sb">
+    <div class="ey">Attention &amp; Stress Reactivity Profile</div>
+    <h2 class="t1 sm">Theta-Beta Ratio · Beta-Alpha Ratio.</h2>
+    <div class="col2">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">TBR</span><span class="cond">Low Load</span></div>
+        <div class="mc-n">Theta / Beta balance · attention regulation</div>
+        <div class="mc-s">MMSE r = +0.48 · d = −0.93</div>
+        <div class="mc-d">In healthy attentive brains, beta dominates during cognitive tasks. Theta dominance signals a low-focus, internally-directed state. <strong>Dual-sided flag:</strong> both high (attentional dysregulation) and very low (neurodegenerative disruption) are clinically significant.</div>
+        <div class="flag">⚠ HIGH TBR: ADHD / fatigue / chronic stress (d = −0.93 vs Dementia)<br>⚠ LOW TBR: neurodegenerative disruption of theta-generating circuits</div>
+        <div class="rec">High → TBR-reduction NFB · attention training · Low → formal MoCA, rule out dementia</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">BAR</span><span class="cond">High Load</span></div>
+        <div class="mc-n">Beta / Alpha ratio · cortisol-validated</div>
+        <div class="mc-s">MMSE r = −0.50 ★ · cortisol r = −0.42</div>
+        <div class="mc-d">Captures the alpha→beta shift under cognitive challenge. The <strong>only Neurosteer metric directly validated against salivary cortisol</strong> (r = −0.42, N ≈ 40). Strongest MMSE correlate in the entire battery (r = −0.50).</div>
+        <div class="flag">⚠ Cortisol-validated stress over-reactivity · assess for anxiety disorder, HPA-axis dysregulation</div>
+        <div class="rec">BAR-reduction NFB · HRV biofeedback · stress-axis endocrine workup</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 6: CA & ME ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 5 · Neuromarkers: CA · ME</span></div>
+  <div class="sb">
+    <div class="ey">Working Memory &amp; Task Activation Profile</div>
+    <h2 class="t1 sm">Cognitive Alertness · Memory Engagement.</h2>
+    <div class="col3">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">CA</span><span class="cond">Low Load</span></div>
+        <div class="mc-n">Noradrenergic task-readiness</div>
+        <div class="mc-s">MMSE r = +0.23</div>
+        <div class="mc-d">Healthy brains show a clear rest→task increase (+4.23 units, p &lt; .001). <strong>Absent activation</strong> is present in both Mild Dementia AND F-DOPA+ Parkinson's — pointing to shared locus coeruleus neurodegeneration.</div>
+        <div class="flag">⚠ LC-NE alertness deficit · age ≥ 65: evaluate for early Parkinson's or prodromal dementia</div>
+        <div class="rec">CA activation NFB · alertness engagement training</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">ME</span><span class="cond">High Load</span></div>
+        <div class="mc-n">WM network engagement</div>
+        <div class="mc-s">cortisol r = +0.40 (strongest high-load)</div>
+        <div class="mc-d">Measures working memory network activity during 2-back/3-back tasks. An individual cognitive fingerprint — not a group-discriminating marker. Stronger ME predicts faster responses and higher post-session cortisol.</div>
+        <div class="info">Individual marker — most valuable for longitudinal tracking of WM-network response to NFB</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">ME</span><span class="cond">Rest-to-Task Δ</span></div>
+        <div class="mc-n">WM mobilization capacity</div>
+        <div class="mc-s">individual profile</div>
+        <div class="mc-d">The ramp-up from low to high demand. Flat ΔME signals limited working-memory mobilization capacity — a trainable target for within-session NFB protocols.</div>
+        <div class="rec">Pair with CA to classify engagement pattern · track change across sessions</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 7: AS & SR ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 6 · Neuromarkers: AS · SR</span></div>
+  <div class="sb">
+    <div class="ey">Physiological Stress Profile</div>
+    <h2 class="t1 sm">Autonomic Stress · Stress Reactivity.</h2>
+    <div class="col2">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">AS</span><span class="cond">At Rest</span></div>
+        <div class="mc-n">HRV-validated resting stress</div>
+        <div class="mc-s">PNN50 r = −0.34 · SDNN r = −0.24 · N = 75</div>
+        <div class="mc-d">Validated directly against HRV — bridges EEG and cardiology in one session. Higher AS = higher sympathetic arousal = lower HRV = reduced stress resilience. Does NOT discriminate cognitive groups (d = −0.15).</div>
+        <div class="info">Pure autonomic stress index — independent of cognitive function. Elevated AS with normal cognitive metrics = test anxiety or chronic stress, not decline.</div>
+        <div class="rec">AS NFB · HRV biofeedback (6 breaths/min) · sleep hygiene · GAD-7 if AS &gt; 70</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">SR</span><span class="cond">High Load</span></div>
+        <div class="mc-n">Stress response under demand</div>
+        <div class="mc-s">MMSE r = −0.09 · d = +0.13 (informational)</div>
+        <div class="mc-d">Captures the acute stress reaction during 2-back and 3-back tasks. Negatively correlated with self-reported calmness under high load. Pure stress reactivity marker — dissociated from cognitive function.</div>
+        <div class="info">Informational only — not included in the composite score. Elevated SR = stress system over-responds during peak cognitive challenge.</div>
+        <div style="margin-top:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">HRV Cross-Validation (N = 75)</div>
+          <table class="dt" style="font-size:11px">
+            <thead><tr><th>HRV Metric</th><th class="r">r with AS</th><th class="r">p</th></tr></thead>
+            <tbody>
+              <tr><td>PNN50 (parasympathetic)</td><td class="r" style="color:var(--teal);font-weight:700">−0.34</td><td class="r">0.003</td></tr>
+              <tr><td>SDNN (overall HRV)</td><td class="r" style="color:var(--teal);font-weight:700">−0.24</td><td class="r">0.040</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 8: RT & ERROR ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 7 · Neuromarkers: RT · Error Rate</span></div>
+  <div class="sb">
+    <div class="ey">Behavioral Performance Profile</div>
+    <h2 class="t1 sm">Response Time · Error Rate — Largest effect sizes in the battery.</h2>
+    <div class="col2">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">RT</span><span class="cond">Low Load</span></div>
+        <div class="mc-n">Processing speed at baseline</div>
+        <div class="mc-s">MMSE r = −0.46 · d = +1.44 ★ (largest in battery)</div>
+        <div class="mc-d">RT during simple digit-detection tasks reflects baseline neural processing speed.</div>
+        <table class="dt" style="margin-top:7px;font-size:11px">
+          <thead><tr><th>Group</th><th class="r">RT Low (ms)</th><th class="r">d (H/D)</th></tr></thead>
+          <tbody>
+            <tr><td>Healthy</td><td class="r">1945 ± 858</td><td class="r g">—</td></tr>
+            <tr><td>MCI</td><td class="r">2712 ± 1299</td><td class="r a">—</td></tr>
+            <tr><td>Mild Dementia</td><td class="r">3537 ± 1478</td><td class="r rd">+1.44</td></tr>
+          </tbody>
+        </table>
+        <div class="flag" style="margin-top:7px">⚠ &gt; P80 (2348 ms) — reduced processing speed · often co-occurs with elevated NE and reduced CA</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">Error</span><span class="cond">Low Load</span></div>
+        <div class="mc-n">Accuracy at baseline tasks</div>
+        <div class="mc-s">MMSE r = −0.387 · d = +1.24</div>
+        <div class="mc-d">Healthy adults make almost no errors on simple detection (mean 5.4%). Mild Dementia: 24.8% — a <strong>5-fold increase</strong>. Errors on trivially easy tasks signal significant impairment.</div>
+        <table class="dt" style="margin-top:7px;font-size:11px">
+          <thead><tr><th>Group</th><th class="r">Error Low (%)</th><th class="r">d (H/D)</th></tr></thead>
+          <tbody>
+            <tr><td>Healthy</td><td class="r g">5.4 ± 10.1</td><td class="r g">—</td></tr>
+            <tr><td>MCI</td><td class="r a">12.5 ± 15.4</td><td class="r a">—</td></tr>
+            <tr><td>Mild Dementia</td><td class="r rd">24.8 ± 18.3</td><td class="r rd">+1.24</td></tr>
+          </tbody>
+        </table>
+        <div class="flag" style="margin-top:7px">⚠ &gt; P80 (5.9%) — attentional lapses on easy tasks · rule out ADHD, fatigue, medication</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 9: LIVE VISUALIZATION ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 8 · Live Visualization</span></div>
+  <div class="sb">
+    <div class="ey">hdrEEG™ Live Visualization</div>
+    <h2 class="t1">Second-by-second brain activity.</h2>
+    <div class="col2" style="gap:28px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <img src="assets/figures/sbs-fig1.png" class="img-fit" style="max-height:200px" alt="Second-by-second qEEG">
+        <div style="font-size:11px;color:var(--stone);line-height:1.5">Delta (0.5–4 Hz) · Theta (4–8 Hz) · Alpha (8–13 Hz) · Beta (13–30 Hz) · Gamma (30–45 Hz). Each band independently scaled with task-phase shading.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">What to look for</div>
+          <table class="it">
+            <tbody>
+              <tr><td>Clean step-changes</td><td>Shifts in activity at each difficulty increase — confirms the patient is engaging with the tasks</td></tr>
+              <tr><td>Late-session drift</td><td>Visible fatigue effects — may affect high-load metric interpretation</td></tr>
+              <tr><td>Technical quality</td><td>Sudden spikes or flat segments = artifact periods to discount</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Task Phase Shading</div>
+          <div class="lbar" style="margin-top:0">
+            <div class="ls r">Instructions</div>
+            <div class="ls l">Rest</div>
+            <div class="ls m">Low Load</div>
+            <div class="ls h">High Load</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 10: SCORING ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 9 · Report View — Scoring &amp; Summary</span></div>
+  <div class="sb">
+    <div class="ey">Report View · Results Summary</div>
+    <h2 class="t1">Results Summary &amp; Scoring.</h2>
+    <p style="font-size:12.5px;color:var(--slate);margin-bottom:12px;flex-shrink:0">14 scored metrics consolidated into a single table. Each metric is the average of a neuromarker under a specific cognitive load condition.</p>
+    <div class="col2" style="gap:28px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Score Per Metric</div>
+          <table class="it">
+            <tbody>
+              <tr><td>3 — Optimal</td><td>Top normative range for the patient's age group</td></tr>
+              <tr><td>2 — Typical</td><td>Within healthy reference range — no action required</td></tr>
+              <tr><td>1 — Borderline</td><td>Approaching boundary — monitor at next assessment</td></tr>
+              <tr><td>0 — Atypical</td><td style="color:var(--red);font-weight:600">Outside healthy range — clinically flagged</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Total Score → Clinical Action</div>
+          <table class="it">
+            <tbody>
+              <tr><td>38 – 42</td><td style="color:var(--green);font-weight:600">Optimal — all metrics in healthy range</td></tr>
+              <tr><td>28 – 37</td><td>Typical — minor deviations, monitor longitudinally</td></tr>
+              <tr><td>18 – 27</td><td style="color:var(--amber);font-weight:600">Borderline — clinical review + NFB consideration</td></tr>
+              <tr><td>&lt; 18</td><td style="color:var(--red);font-weight:600">Atypical — neuropsychological evaluation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="sc-pair">
+          <div class="sc ok">
+            <div class="sc-n">34<span style="font-size:18px;font-weight:400;opacity:.5"> / 42</span></div>
+            <div class="sc-sub">Healthy</div>
+            <div class="sc-d">Typical profile — minor deviations, monitor longitudinally</div>
+          </div>
+          <div class="sc bad">
+            <div class="sc-n">11<span style="font-size:18px;font-weight:400;opacity:.5"> / 42</span></div>
+            <div class="sc-sub">Atypical</div>
+            <div class="sc-d">Outside healthy range — neuropsychological evaluation indicated</div>
+          </div>
+        </div>
+        <div style="background:var(--light);border-radius:6px;padding:10px 13px;font-size:11px;color:var(--slate);line-height:1.6">
+          <strong style="color:var(--ink)">14 scored metrics:</strong> NE at Rest · NE at Moderate Load · NE at High Load · TBR at Low Load · BAR at High Load · CA at Low Load · ME at High Load · ME Rest-to-Task Δ · AS at Rest · RT at Low Load · RT at High Load · Error at Low Load · Error at High Load · EF Age Gap
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 11: FLAGGED PROFILES ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 10 · Report View — Flagged Profiles</span></div>
+  <div class="sb">
+    <div class="ey">Report View · Flagged Metrics — Clinical Gauge Cards</div>
+    <h2 class="t1 sm">Out-of-range clinical profiles.</h2>
+    <div class="pt">
+      <div class="pt-f"><div class="pl">Age / Sex</div><div class="pv">56 / M</div></div>
+      <div class="pt-f"><div class="pl">EF Age Gap</div><div class="pv red">+14 yr</div></div>
+      <div class="pt-f"><div class="pl">Flagged Metrics</div><div class="pv">NE · TBR · AS · BAR</div></div>
+      <div class="pt-f"><div class="pl">Score</div><div class="pv red">20 / 42</div></div>
+      <div class="pt-f"><div class="pl">NFB Protocol</div><div class="pv">20 sessions · 2 blocks</div></div>
+    </div>
+    <div class="col4">
+      <div class="mc">
+        <div class="mc-h"><span class="badge">NE</span><span class="cond">At Rest</span></div>
+        <div class="mc-s" style="font-size:10px">lower = more efficient</div>
+        <div class="flag">⚠ Significantly elevated — impaired DMN disengagement; chronic cortical over-recruitment</div>
+        <div class="rec">NFB resting NE reduction · sleep assessment</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">TBR</span><span class="cond">Low Load</span></div>
+        <div class="mc-s" style="font-size:10px">normal = balanced attention</div>
+        <div class="flag">⚠ Significantly elevated — attentional dysregulation; theta-dominant pattern</div>
+        <div class="rec">TBR-reduction NFB · attention training</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">AS</span><span class="cond">At Rest</span></div>
+        <div class="mc-s" style="font-size:10px">HRV-validated · lower = calmer</div>
+        <div class="flag">⚠ Elevated resting physiological stress — HRV-validated chronic autonomic arousal</div>
+        <div class="rec">Assess sleep · GAD-7 screening · HRV biofeedback</div>
+      </div>
+      <div class="mc">
+        <div class="mc-h"><span class="badge">BAR</span><span class="cond">High Load</span></div>
+        <div class="mc-s" style="font-size:10px">cortisol-validated · r = −0.42</div>
+        <div class="flag">⚠ Significantly elevated stress reactivity — cortisol-validated; excessive arousal under challenge</div>
+        <div class="rec">BAR-reduction NFB · stress-axis workup</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:var(--light);border-radius:6px;padding:9px 13px;font-size:11.5px;color:var(--slate);line-height:1.5;flex-shrink:0">
+      <strong style="color:var(--ink)">Clinical pattern — compensatory overactivation:</strong> High NE + High BAR + High TBR. Brain over-recruited, under chronic stress, and poorly focused. Typical of MCI/early dementia — compensatory mechanisms becoming unsustainable. EF Age gap of +14 years confirms accelerated brain aging.
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 12: NFB PLAN ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 11 · Neurofeedback Plan</span></div>
+  <div class="sb">
+    <div class="ey">AI-Personalized Neurofeedback Protocol</div>
+    <h2 class="t1">AI-personalized neurofeedback plan.</h2>
+    <p class="lead">The patient watches a movie. The Neurosteer system monitors the personalized combined neuromarker in real time, modulating <strong>screen brightness and audio volume</strong> — passive for the patient, active for the brain. No task engagement required.</p>
+    <div class="nfb">
+      <div class="nb cog">
+        <div class="nb-l">Block 1 · Cognitive Training · 10 Sessions</div>
+        <div class="nb-t">Combined neuromarker: NE + TBR</div>
+        <div class="nb-d">
+          <p><strong>Goal.</strong> Reduce NE toward age-adjusted norm — same cognitive performance with fewer neural resources. Normalize TBR toward the healthy attention-regulation range.</p>
+          <p style="margin-top:7px"><strong>Expected outcomes.</strong> NE typically decreases 10–20% after 10 sessions. TBR normalization correlates with improved sustained attention, focus, and social engagement.</p>
+          <p style="margin-top:7px"><strong>Structure.</strong> 30–40 min · 2–3× / week · real-time audio + video modulation.</p>
+          <p style="margin-top:7px"><strong>Targets.</strong> NE Rest → below P80 = 75.4 · TBR → reduce toward P80 = 7.1</p>
+        </div>
+      </div>
+      <div class="nb str">
+        <div class="nb-l">Block 2 · Stress &amp; Autonomic Training · 10 Sessions</div>
+        <div class="nb-t">Combined neuromarker: AS + BAR</div>
+        <div class="nb-d">
+          <p><strong>Goal.</strong> Reduce resting autonomic stress (AS) and normalize stress reactivity (BAR). Brain learns parasympathetic tone through real-time reinforcement.</p>
+          <p style="margin-top:7px"><strong>Expected outcomes.</strong> AS reduction 15–25% after 10 sessions. BAR normalization correlates with lower reported anxiety and improved stress resilience.</p>
+          <p style="margin-top:7px"><strong>Complementary.</strong> Breathwork (6 breaths/min resonance frequency) · sleep hygiene · consider HPA-axis endocrine workup.</p>
+          <p style="margin-top:7px"><strong>Targets.</strong> AS Rest → target P70 · BAR High → below P80</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:9px;font-size:10.5px;color:var(--stone);flex-shrink:0">Reassess after 10 sessions and at protocol completion · Repeat full assessment every 3–6 months for longitudinal monitoring.</div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 13: SCIENTIFIC BACKGROUND ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Scientific Background · Evidence Base</span></div>
+  <div class="sb">
+    <div class="ey">Evidence Base</div>
+    <h2 class="t1">Validated against MMSE, HRV &amp; cortisol.</h2>
+    <div class="col2" style="gap:28px;align-items:start">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Key Metric Correlations · N = 977 participants</div>
+        <table class="dt">
+          <thead><tr><th>Metric</th><th class="r">MMSE r</th><th class="r">Cohen's d</th><th class="r">Also validated vs</th></tr></thead>
+          <tbody>
+            <tr><td>BAR at High Load</td><td class="r" style="color:var(--teal);font-weight:700">−0.50 ★</td><td class="r">+1.13</td><td class="r">Cortisol (r = −0.42)</td></tr>
+            <tr><td>NE at High Load</td><td class="r" style="color:var(--teal);font-weight:700">−0.44</td><td class="r">+1.44</td><td class="r">—</td></tr>
+            <tr><td>RT at Low Load</td><td class="r" style="color:var(--teal);font-weight:700">−0.46</td><td class="r">+1.44</td><td class="r">—</td></tr>
+            <tr><td>TBR at Low Load</td><td class="r" style="color:var(--teal);font-weight:700">+0.48</td><td class="r">−0.93</td><td class="r">—</td></tr>
+            <tr><td>AS at Rest</td><td class="r">—</td><td class="r">—</td><td class="r">HRV: PNN50 r=−0.34</td></tr>
+            <tr><td>CA at Low Load</td><td class="r" style="color:var(--teal);font-weight:700">+0.23</td><td class="r">—</td><td class="r">F-DOPA PET (PD)</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;font-size:10.5px;color:var(--stone);line-height:1.5">Validated at Sourasky Medical Center · Haifa University · Dorot Geriatric Center · Stanford University</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em">Published Evidence · 8 peer-reviewed · 4 preprints · 3 submitted</div>
+        <table class="dt">
+          <thead><tr><th>Study</th><th>Journal / Venue</th><th class="r">N</th></tr></thead>
+          <tbody>
+            <tr><td>Molcho et al. 2025</td><td><em>Scientific Reports</em></td><td class="r">237</td></tr>
+            <tr><td>Molcho et al. 2023</td><td><em>Frontiers Neurology</em> (PD)</td><td class="r">52</td></tr>
+            <tr><td>Maimon et al. 2022</td><td><em>Frontiers Neuroscience</em></td><td class="r">38</td></tr>
+            <tr><td>Molcho et al. 2022</td><td><em>Frontiers Aging Neuro.</em></td><td class="r">82</td></tr>
+            <tr><td>Maimon et al. 2025</td><td>IEEE ICHCI</td><td class="r">101</td></tr>
+            <tr><td>Maimon et al. 2021 🏆</td><td>IEEE LifeTech</td><td class="r">14</td></tr>
+          </tbody>
+        </table>
+        <div class="box" style="margin-top:10px">Sensitivity <strong>0.90</strong> for cognitive decline detection · Meta-analysis N = 349 (Molcho et al. 2025, <em>Nature Scientific Reports</em>)</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+<!-- ═══ SLIDE 14: VALUE OF ASSESSMENT ═══ -->
+<div class="slide">
+  <div class="sh"><img src="assets/logo.png" class="sh-logo" alt="Neurosteer"><span class="sh-sec">Section 12 · Value of Assessment</span></div>
+  <div class="sb">
+    <div class="ey">The Value of Assessment</div>
+    <h2 class="t1 sm">The missing biomarker in every patient panel.</h2>
+    <div class="vps">
+      <div class="vp"><div class="vp-n">01</div><div class="vp-t">Objective brain biomarkers</div><div class="vp-d">16 brain metrics validated against MMSE, HRV, and cortisol — the same objective rigor as a blood panel, applied to the brain.</div></div>
+      <div class="vp"><div class="vp-n">02</div><div class="vp-t">Earlier signal</div><div class="vp-d">Reserve deficits visible under moderate and high load are invisible on resting EEG — detectable years before functional decline appears on standard tests.</div></div>
+      <div class="vp"><div class="vp-n">03</div><div class="vp-t">Personalized treatment targets</div><div class="vp-d">The report identifies exactly which metrics are out of range and auto-generates a targeted neurofeedback protocol unique to that cognitive profile.</div></div>
+      <div class="vp"><div class="vp-n">04</div><div class="vp-t">Trackable over time</div><div class="vp-d">Repeat every 3–6 months. Executive Function Age and metric scores provide longitudinal data — objective evidence of brain health change beyond self-report.</div></div>
+      <div class="vp"><div class="vp-n">05</div><div class="vp-t">Integrates with existing data</div><div class="vp-d">AS bridges EEG and HRV. EF Age complements epigenetic clocks. NE and BAR cortisol coupling links EEG to the endocrine panel.</div></div>
+      <div class="vp"><div class="vp-n">06</div><div class="vp-t">Quality of life is cognitive</div><div class="vp-d">Physical health extends years. Cognitive health determines how those years are lived — engagement with family, profession, and purpose.</div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <div style="flex:1;background:var(--teal-bg);border-radius:6px;padding:10px 13px;font-size:11.5px;color:var(--teal-d);line-height:1.5"><strong>Initial evaluation</strong><br>Baseline before any intervention</div>
+      <div style="flex:1;background:var(--teal-bg);border-radius:6px;padding:10px 13px;font-size:11.5px;color:var(--teal-d);line-height:1.5"><strong>After 10 NFB sessions</strong><br>Mid-treatment trajectory check</div>
+      <div style="flex:1;background:var(--teal-bg);border-radius:6px;padding:10px 13px;font-size:11.5px;color:var(--teal-d);line-height:1.5"><strong>Full protocol completion</strong><br>Pre / post comparison</div>
+      <div style="flex:1;background:var(--teal-bg);border-radius:6px;padding:10px 13px;font-size:11.5px;color:var(--teal-d);line-height:1.5"><strong>Every 6 months</strong><br>Longitudinal monitoring</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-t">Neurosteer · Physician Training Guide</span><span class="sf-t">NSR-PG-04-2026</span></div>
+</div>
+
+</div><!-- /deck -->
+</div><!-- /wrap -->
+
+<nav class="ctrl">
+  <button class="cb" id="pb" onclick="go(cur-1)">&#8592;</button>
+  <span class="cct" id="ct">1 / 14</span>
+  <button class="cb" id="nb2" onclick="go(cur+1)">&#8594;</button>
+</nav>
+
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const n = slides.length;
+
+function go(i) {
+  slides[cur].classList.remove('on');
+  cur = Math.max(0, Math.min(i, n - 1));
+  slides[cur].classList.add('on');
+  document.getElementById('ct').textContent = (cur + 1) + ' / ' + n;
+  document.getElementById('pb').disabled = cur === 0;
+  document.getElementById('nb2').disabled = cur === n - 1;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); go(0); }
+  else if (e.key === 'End') { e.preventDefault(); go(n - 1); }
+});
+
+function scale() {
+  const w = document.getElementById('wrap');
+  const d = document.getElementById('deck');
+  const s = Math.min(w.clientWidth / 1280, w.clientHeight / 720);
+  const ml = (w.clientWidth - 1280 * s) / 2;
+  const mt = (w.clientHeight - 720 * s) / 2;
+  d.style.transform = 'scale(' + s + ')';
+  d.style.marginLeft = ml + 'px';
+  d.style.marginTop = mt + 'px';
+}
+window.addEventListener('resize', scale);
+scale();
+go(0);
+</script>
+</body>
+</html>
