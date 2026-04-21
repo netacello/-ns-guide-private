@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neurosteer · Publications</title>
+<link rel="stylesheet" href="styles.css?v=6">
+<style>
+/* ── Publications-specific styles ────────────────────────────── */
+.pub-list { list-style: none; padding: 0; margin: 0; }
+
+.pub-item {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 14px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.pub-header { padding: 16px 20px 12px; }
+
+.pub-num {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--stone);
+  text-transform: uppercase; margin-bottom: 5px;
+}
+
+.pub-title {
+  font-family: var(--f-sans); font-size: 15px; font-weight: 600;
+  color: var(--ink); line-height: 1.4; margin: 0 0 5px;
+}
+
+.pub-citation {
+  font-size: 13px; color: var(--text-2); line-height: 1.6; margin: 0 0 9px;
+}
+.pub-citation em { font-style: italic; }
+
+.pub-meta {
+  display: flex; align-items: center;
+  gap: 10px; flex-wrap: wrap;
+}
+
+.pub-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.pub-tag.journal    { background: #E6F0EA; color: #2D6641; }
+.pub-tag.conference { background: #E8EDF5; color: #2D4A7A; }
+.pub-tag.preprint   { background: #F0EAF5; color: #5A2D7A; }
+.pub-tag.submitted  { background: #F5F0E6; color: #8A6020; }
+.pub-tag.award      { background: #FFF3CD; color: #856404; }
+
+.pub-doi {
+  font-size: 12px; color: var(--green); text-decoration: none;
+  font-family: var(--f-mono);
+}
+.pub-doi:hover { text-decoration: underline; }
+
+.pub-abstract-toggle {
+  display: inline-block; padding: 3px 10px;
+  border: 1px solid var(--rule); border-radius: 4px;
+  font-size: 11px; font-weight: 600; color: var(--stone);
+  background: none; cursor: pointer; font-family: var(--f-sans);
+  letter-spacing: 0.02em; transition: background 0.15s, color 0.15s;
+  margin-left: auto;
+}
+.pub-abstract-toggle:hover,
+.pub-abstract-toggle[aria-expanded="true"] { background: var(--bg-2); color: var(--ink); }
+
+.pub-abstract {
+  display: none; padding: 0 20px 16px;
+  font-size: 13px; line-height: 1.7; color: var(--text-2);
+  border-top: 1px solid var(--rule);
+}
+.pub-abstract p { margin: 10px 0 0; }
+.pub-abstract p:first-child { margin-top: 12px; }
+.pub-abstract.open { display: block; }
+
+.pub-section-head {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--stone);
+  padding: 22px 0 8px; border-bottom: 1px solid var(--rule); margin-bottom: 14px;
+}
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--stone);
+  text-decoration: none; letter-spacing: 0.03em;
+}
+.back-link:hover { color: var(--ink); }
+.back-link::before { content: "\2190"; }
+</style>
+</head>
+<body>
+
+<button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation">
+  <span></span><span></span><span></span>
+</button>
+<button class="rail-reopen-btn" id="rail-reopen-btn" aria-label="Open navigation" title="Open navigation">&#8250;</button>
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<div class="shell">
+
+  <!-- ═════════ LEFT RAIL ═════════ -->
+  <aside class="rail" id="rail">
+    <button class="rail-toggle-btn" id="rail-toggle-btn" aria-label="Collapse navigation" title="Collapse navigation">&#8249;</button>
+    <div class="brand">
+      <img src="assets/logo.png" alt="Neurosteer" style="width:140px;height:auto;display:block;margin-bottom:6px;">
+      <div class="brand-name" style="font-size:11px;font-weight:400;color:var(--stone);letter-spacing:0.04em;text-transform:uppercase;">Publications</div>
+    </div>
+
+    <div class="doc-title">Research Library</div>
+    <div class="doc-sub">8 peer-reviewed · 4 preprints · 3 submitted</div>
+
+    <div class="rail-group-label">Peer-Reviewed</div>
+    <a class="rail-link" href="#journals"><span class="rail-num">1</span><span>Journal Articles</span></a>
+    <a class="rail-link" href="#conference"><span class="rail-num">2</span><span>Conference Papers</span></a>
+
+    <div class="rail-group-label">In Progress</div>
+    <a class="rail-link" href="#preprints"><span class="rail-num">3</span><span>Preprints</span></a>
+    <a class="rail-link" href="#submitted"><span class="rail-num">4</span><span>Submitted Manuscripts</span></a>
+
+    <div class="rail-foot">
+      © Neurosteer Ltd. 2026<br>
+      For physician reference only.<br>
+      <a href="index.html">← Physician Guide</a>
+    </div>
+  </aside>
+
+  <!-- ═════════ MAIN ═════════ -->
+  <main class="main">
+
+    <div class="top-bar" style="padding:12px 32px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:16px;">
+      <a href="index.html" class="back-link">Physician Guide</a>
+      <span style="color:var(--rule)">|</span>
+      <span style="font-size:12px;color:var(--stone)">4 journal · 4 conference · 4 preprint · 3 submitted — updated April 2026</span>
+    </div>
+
+    <div class="chapter" style="padding:36px 40px 60px">
+
+      <div class="chap-title" style="margin-bottom:4px">Neurosteer Publications</div>
+      <div class="chap-intro prose" style="margin-bottom:28px">
+        Complete bibliography of peer-reviewed studies, conference papers, and preprints
+        validating Neurosteer hdrEEG™ neuromarkers. Click <strong>Abstract</strong> to expand.
+      </div>
+
+      <!-- ══════════ JOURNAL ARTICLES ══════════ -->
+      <div class="pub-section-head" id="journals">Journal Articles</div>
+      <ul class="pub-list">
+
+        <!-- J1: Molcho 2025 Scientific Reports -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Journal · 2025</div>
+            <div class="pub-title">Automated frontal single-channel EEG cognitive screening: Systematic evaluation across two cohorts</div>
+            <p class="pub-citation">Molcho, L., Maimon, N. B., Zeimer, T., Chibotero, O., Rabinowicz, S., Armoni, V., Bar On, N., Intrator, N., &amp; Sasson, A. (2025). <em>Scientific Reports</em>, <em>15</em>, 10983.</p>
+            <div class="pub-meta">
+              <span class="pub-tag journal">Journal</span>
+              <a class="pub-doi" href="https://doi.org/10.1038/s41598-025-10983-2" target="_blank" rel="noopener">doi:10.1038/s41598-025-10983-2</a>
+              <a class="pub-doi" href="https://www.nature.com/articles/s41598-025-10983-2" target="_blank" rel="noopener" style="margin-left:4px">Open access ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>This report presents findings from two studies and a meta-analysis involving 237 senior participants investigating cognitive function in aging populations.</p>
+            <p><strong>Study 1 (n = 80):</strong> 40 healthy seniors (MMSE &gt; 28) vs. 40 at-risk (MMSE 24–27). Dimensionality-reduction models (Lasso, Elastic Net) analyzing EEG features correlated with MMSE achieved sensitivity 0.90 and specificity 0.57 for detecting cognitive decline.</p>
+            <p><strong>Study 2 (n = 77):</strong> Three groups — healthy (MMSE &gt; 27), MCI risk (MMSE 24–27), and mild dementia (MMSE &lt; 24). Significant between-group differences found for cognitive load levels, particularly for Gamma band and A0.</p>
+            <p><strong>Meta-analysis (N = 237 seniors + 112 young controls):</strong> Significant associations identified between EEG biomarkers (A0 activity) and both MMSE and MoCA scores, confirming EEG patterns as reliable indicators for early detection of cognitive decline using a single-channel, accessible device.</p>
+          </div>
+        </li>
+
+        <!-- J2: Molcho 2023 FN (Parkinson's) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Journal · 2023</div>
+            <div class="pub-title">Evaluation of Parkinson's disease early diagnosis using single-channel EEG features and auditory cognitive assessment</div>
+            <p class="pub-citation">Molcho, L., Maimon, N. B., Hezi, N., Zeimer, T., Intrator, N., &amp; Gurevich, T. (2023). <em>Frontiers in Neurology</em>, <em>14</em>, 1273458.</p>
+            <div class="pub-meta">
+              <span class="pub-tag journal">Journal</span>
+              <a class="pub-doi" href="https://doi.org/10.3389/fneur.2023.1273458" target="_blank" rel="noopener">doi:10.3389/fneur.2023.1273458</a>
+              <a class="pub-doi" href="https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1273458/full" target="_blank" rel="noopener" style="margin-left:4px">Open access ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p><strong>Background:</strong> Parkinson's disease (PD) often presents with subtle early signs, making diagnosis difficult. F-DOPA PET imaging provides a reliable measure of dopaminergic function and is a primary tool for early PD diagnosis. This study evaluates whether ML-extracted single-channel EEG features can predict F-DOPA results.</p>
+            <p><strong>Methods:</strong> 32 cognitively healthy patients who underwent F-DOPA PET as part of standard care and 20 healthy controls. EEG was recorded via the Neurosteer system during an auditory cognitive task. Wavelet-packet decomposition and ML were applied; a connectivity analysis modeled similarly to fMRI was used to build a classification model.</p>
+            <p><strong>Results:</strong> The prediction model correctly classified patients with unrevealed F-DOPA scores. EEG feature A0 and the Delta band showed distinct activity patterns — controls displayed higher activity than PD patients. In controls, L1 showed variations between resting state and high cognitive load, an effect absent in PD patients.</p>
+            <p><strong>Conclusion:</strong> Single-channel EEG combined with an auditory cognitive assessment shows promise for early PD diagnosis. The shared LC-NE mechanism linking absent L1 activation to F-DOPA+ status opens a non-invasive screening pathway.</p>
+          </div>
+        </li>
+
+        <!-- J3: Maimon 2022 FNS (laparoscopy) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Journal · 2022</div>
+            <div class="pub-title">Continuous monitoring of mental load during virtual simulator training for laparoscopic surgery reflects laparoscopic dexterity: A comparative study using a novel wireless device</div>
+            <p class="pub-citation">Maimon, N. B., Bez, M., Drobot, D., Molcho, L., Intrator, N., Kakiashvilli, E., &amp; Bickel, A. (2022). <em>Frontiers in Neuroscience</em>, <em>15</em>, 694010.</p>
+            <div class="pub-meta">
+              <span class="pub-tag journal">Journal</span>
+              <a class="pub-doi" href="https://doi.org/10.3389/fnins.2021.694010" target="_blank" rel="noopener">doi:10.3389/fnins.2021.694010</a>
+              <a class="pub-doi" href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2021.694010/full" target="_blank" rel="noopener" style="margin-left:4px">Open access ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>38 medical students and interns underwent three experiments examining behavioral performance on a surgery simulator while brain activity was monitored by a single-channel EEG. Each experiment included three trials of laparoscopic tasks with varying inter-session intervals to examine changes during training and after overnight sleep consolidation.</p>
+            <p>Participants' performance improved with trial repetition across all three experiments. Delta band and the novel VC9 biomarker exhibited a significant decrease in activity with trial repetition. Delta, VC9, and theta activity also decreased with better individual performance.</p>
+            <p>VC9 showed higher sensitivity to lower cognitive load levels compared to classical theta. These measurements may provide neuroimaging-based readiness assessment for laparoscopic surgery training and extend to real operative settings.</p>
+          </div>
+        </li>
+
+        <!-- J4: Molcho 2022 FAN -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Journal · 2022</div>
+            <div class="pub-title">Single-channel EEG features reveal an association with cognitive decline in seniors performing auditory cognitive assessment</div>
+            <p class="pub-citation">Molcho, L., Maimon, N. B., Regev-Plotnik, N., Rabinowicz, S., Intrator, N., &amp; Sasson, A. (2022). <em>Frontiers in Aging Neuroscience</em>, <em>14</em>, 773692.</p>
+            <div class="pub-meta">
+              <span class="pub-tag journal">Journal</span>
+              <a class="pub-doi" href="https://doi.org/10.3389/fnagi.2022.773692" target="_blank" rel="noopener">doi:10.3389/fnagi.2022.773692</a>
+              <a class="pub-doi" href="https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2022.773692/full" target="_blank" rel="noopener" style="margin-left:4px">Open access ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p><strong>Background:</strong> Cognitive decline remains highly underdiagnosed despite efforts to find novel biomarkers. Machine-learning (ML) EEG features from a single-channel device may offer a non-invasive, low-cost approach for identifying cognitive decline.</p>
+            <p><strong>Methods:</strong> 60 seniors in different cognitive states and 22 healthy young controls performed an auditory cognitive assessment while being recorded with a single-channel EEG. MMSE scores were used to designate groups (cutoffs at 24 and 27). EEG features were extracted via wavelet-packet decomposition and ML.</p>
+            <p><strong>Results:</strong> MMSE scores significantly correlated with reaction times and EEG features A0 and ST4. A0 separated MMSE &lt; 24 from MMSE ≥ 28 groups. ST4 differentiated the MMSE &lt; 24 group from all other groups, showing sensitivity to subtle cognitive changes. EEG features Theta, Delta, A0, and VC9 showed increased activity with higher cognitive load in healthy young participants only — distinct from senior patterns.</p>
+            <p><strong>Conclusion:</strong> Single-channel EEG with short set-up time and novel ML features enables objective assessment of cognitive states suitable for community-based screening.</p>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- ══════════ CONFERENCE PAPERS ══════════ -->
+      <div class="pub-section-head" id="conference" style="margin-top:28px">Conference Papers</div>
+      <ul class="pub-list">
+
+        <!-- C1: Maimon 2025 IEEE ICHCI -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Conference · IEEE ICHCI 2025</div>
+            <div class="pub-title">Neural dissociation of cognitive load, arousal, and stress in natural settings using single frontal EEG</div>
+            <p class="pub-citation">Maimon, N. B., Molcho, L., Zeimer, T., Chibotero, O., Intrator, N., &amp; Yahalom, E. (2025). <em>Proceedings of IEEE International Conference on Human-Computer Interaction (ICHCI 2025)</em>.</p>
+            <div class="pub-meta">
+              <span class="pub-tag conference">Conference</span>
+              <a class="pub-doi" href="https://doi.org/10.1109/ICHCI67614.2025.11292523" target="_blank" rel="noopener">doi:10.1109/ICHCI67614.2025.11292523</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- C2: Maimon 2022 BCI (DOC/tDCS) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Conference · IEEE BCI 2022</div>
+            <div class="pub-title">EEG reactivity changes captured via mobile BCI device following tDCS intervention — a pilot study in disorders of consciousness (DOC) patients</div>
+            <p class="pub-citation">Maimon, N. B., Intrator, N., Molcho, L., Barron, J., Jaul, E., &amp; Meiron, O. (2022). <em>Proceedings of IEEE International Winter Conference on Brain-Computer Interface (BCI 2022)</em>.</p>
+            <div class="pub-meta">
+              <span class="pub-tag conference">Conference</span>
+              <a class="pub-doi" href="https://doi.org/10.1109/BCI53720.2022.9734839" target="_blank" rel="noopener">doi:10.1109/BCI53720.2022.9734839</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>This pilot study examined open-label transcranial direct current stimulation (tDCS) treatment in 6 patients with disorders of consciousness (DOC), focusing on clinical benefits and changes in event-related EEG reactivity following 10 days of anodal left-prefrontal cortex tDCS versus pre-treatment parameters, and clinical recovery over a one-year post-treatment period.</p>
+            <p>EEG was collected via the Neurosteer® mobile 3-electrode system with cloud-based analysis of classical EEG bands and novel ML biomarkers, alongside a standard 19-channel clinical EEG. ML biomarkers and auditory event-related potentials showed greater sensitivity to neural changes than traditional clinical assessments. The mobile system captured data during routine CRS-R examinations at bedside without additional sessions or specialized personnel.</p>
+          </div>
+        </li>
+
+        <!-- C3: Maimon 2021 LifeTech (working memory) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Conference · IEEE LifeTech 2021</div>
+            <div class="pub-title">Novel single-channel EEG features correlate with working memory load</div>
+            <p class="pub-citation">Maimon, N. B., Lamy, D., Molcho, L., &amp; Intrator, N. (2021). <em>Proceedings of IEEE Global Conference on Life Sciences and Technologies (LifeTech 2021)</em>, pp. 471–472. Nara, Japan.</p>
+            <div class="pub-meta">
+              <span class="pub-tag conference">Conference</span>
+              <span class="pub-tag award">🏆 IEEE LifeTech 2021 Excellent Award</span>
+              <a class="pub-doi" href="https://doi.org/10.1109/LIFETECH52111.2021.9391963" target="_blank" rel="noopener">doi:10.1109/LIFETECH52111.2021.9391963</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>Working memory (WM) load is a cognitive feature highly correlated with mental effort. Theta power shows increased activity with increasing WM load, but such correspondences frequently break down in individuals with cognitive decline — making WM load biomarkers a potentially valuable tool for early detection of cognitive impairment. However, existing studies rely on multi-channel EEG systems that are not accessible in routine clinical settings.</p>
+            <p>14 participants completed the widely-used n-back task while brain activity was recorded with a single-channel EEG (Aurora by Neurosteer®). Frontal theta power and two novel ML features significantly correlated with WM load levels. The two novel features exhibited higher sensitivity to lower WM load changes compared to theta alone.</p>
+            <p>These more sensitive biomarkers are a promising tool for mass screening of mild cognitive impairment.</p>
+          </div>
+        </li>
+
+        <!-- C4: Bolton 2021 LifeTech (interruptions) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Conference · IEEE LifeTech 2021</div>
+            <div class="pub-title">Detecting interruption events during cognitive work using single-channel frontal EEG</div>
+            <p class="pub-citation">Bolton, F., Toch, E., Te'Eni, D., &amp; Maimon, N. B. (2021). <em>Proceedings of IEEE Global Conference on Life Sciences and Technologies (LifeTech 2021)</em>. Nara, Japan.</p>
+            <div class="pub-meta">
+              <span class="pub-tag conference">Conference</span>
+              <a class="pub-doi" href="https://doi.org/10.1109/LIFETECH52111.2021.9391915" target="_blank" rel="noopener">doi:10.1109/LIFETECH52111.2021.9391915</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>Contemporary computing devices subject users to continuous interruptions that can seriously harm productivity and well-being. Understanding how people react to notifications can provide valuable information for managing undesirable interruptions.</p>
+            <p>15 participants received notifications while carrying out a primary task; brain activity was recorded with a wearable EEG system. Results demonstrate that specific EEG features can distinguish between notifications that interrupt the user's activity and those the user can disregard. Wearable EEG can therefore serve as a basis for managing interruptions and protecting cognitive work sessions.</p>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- ══════════ PREPRINTS ══════════ -->
+      <div class="pub-section-head" id="preprints" style="margin-top:28px">Preprints (arXiv)</div>
+      <ul class="pub-list">
+
+        <!-- P1: Maimon arXiv:2509.13875 (Sep 2025) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Preprint · September 2025</div>
+            <div class="pub-title">Personalized detection of stress via hdrEEG: Linking neuro-markers to cortisol, HRV, and self-report</div>
+            <p class="pub-citation">Maimon, N. B., Baruchin, G., Grotto, I., Molcho, L., Intrator, N., Zeimer, T., Chibotero, O., Murad, N., Gidron, Y., &amp; Danino, E. (2025). <em>arXiv:2509.13875</em>. (v3, October 2025.)</p>
+            <div class="pub-meta">
+              <span class="pub-tag preprint">Preprint</span>
+              <a class="pub-doi" href="https://arxiv.org/abs/2509.13875" target="_blank" rel="noopener">arXiv:2509.13875 ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p><strong>Study 1 (n = 101, ages 22–82):</strong> Participants completed stress questionnaires, provided cortisol samples (pre/post session), and performed various cognitive and emotional tasks while EEG was recorded with the Neurosteer system.</p>
+            <p><strong>Study 2 (n = 82, ages 19–42):</strong> Participants completed anxiety assessments and underwent heart rate monitoring during different task conditions.</p>
+            <p>ST4 reflected physiological arousal and cognitive strain, correlating with cortisol and HRV. T2 reflected emotional and autonomic regulation. Both markers offer portable, multimodal indicators of personalized stress for clinical assessment — bridging EEG, endocrine, and self-report measures in naturalistic settings.</p>
+          </div>
+        </li>
+
+        <!-- P2: Maimon arXiv:2507.10093 (Jul 2025) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Preprint · July 2025</div>
+            <div class="pub-title">Dissociating cognitive load and stress responses using single-channel EEG: Behavioral and neural correlates of anxiety across cognitive states</div>
+            <p class="pub-citation">Maimon, N. B., Molcho, L., Zaimer, T., Chibotero, O., Intrator, N., &amp; Yahalom, E. (2025). <em>arXiv:2507.10093</em>.</p>
+            <div class="pub-meta">
+              <span class="pub-tag preprint">Preprint</span>
+              <a class="pub-doi" href="https://arxiv.org/abs/2507.10093" target="_blank" rel="noopener">arXiv:2507.10093 ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>68 participants completed resting recordings, demanding auditory cognitive tasks, and exposure to unpredictable startle stimuli while reporting anxiety levels. The study investigated whether portable single-channel EEG can distinguish cognitive demands from stress-related brain activity.</p>
+            <p>Analysis revealed distinct neural signatures: Theta and VC9 increased under cognitive load but not startle, while Gamma and A0 were elevated by the startle stimulus. The findings suggest that brief, uniform EEG assessment can provide multiple reliable indicators of mental and emotional states simultaneously, with potential applications in clinical, educational, and occupational monitoring.</p>
+          </div>
+        </li>
+
+        <!-- P3: Yahalom arXiv:2507.10175 (Jul 2025) -->
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Preprint · July 2025</div>
+            <div class="pub-title">The evaluation of breathing 5:5 effect on resilience, stress and balance center measured by single-channel EEG</div>
+            <p class="pub-citation">Yahalom, E., Maimon, N. B., Molcho, L., Zeimer, T., Chibotero, O., &amp; Intrator, N. (2025). <em>arXiv:2507.10175</em>.</p>
+            <div class="pub-meta">
+              <span class="pub-tag preprint">Preprint</span>
+              <a class="pub-doi" href="https://arxiv.org/abs/2507.10175" target="_blank" rel="noopener">arXiv:2507.10175 ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>38 participants were divided into intervention and control groups to evaluate slow-paced (5:5) breathing on stress and emotional regulation. The intervention group completed two EEG sessions two weeks apart with daily breathing exercises; the control group had one session.</p>
+            <p>Results showed immediate and sustained effects on neural markers of stress and cognition, with reduced anxiety-related EEG markers after practicing the 5:5 breathing technique. Single-channel hdrEEG detected these neurofeedback-relevant changes, supporting its use for monitoring and guiding breathing-based resilience training.</p>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- ══════════ SUBMITTED / UNDER REVIEW ══════════ -->
+      <div class="pub-section-head" id="submitted" style="margin-top:28px">Submitted Manuscripts</div>
+      <ul class="pub-list">
+
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Submitted · 2026</div>
+            <div class="pub-title">Neural correlates of working memory load: Insights from single-channel EEG and naturalistic cognitive monitoring</div>
+            <p class="pub-citation">Maimon, N. B., Bolton, F., Intrator, N., Molcho, L., Te'Eni, D., Lamy, D., &amp; Toch, E. (2026). <em>Manuscript submitted for publication.</em></p>
+            <div class="pub-meta"><span class="pub-tag submitted">Under Review</span></div>
+          </div>
+        </li>
+
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Preprint · April 2026</div>
+            <div class="pub-title">Neural dissociation of cognitive effort and physiological arousal: Multimodal single-channel EEG, cortisol, and HRV evidence from an ecologically valid field study</div>
+            <p class="pub-citation">Maimon, N. B., Baruchin, G., Grotto, I., Intrator, N., Molcho, L., Zeimer, T., Chibotero, O., Levi, G., Cohen, H., Greenstein, M., &amp; Danino, E. (2026). <em>SSRN preprint.</em> doi:10.2139/ssrn.6520190</p>
+            <div class="pub-meta">
+              <span class="pub-tag submitted">Under Review</span>
+              <a class="pub-doi" href="https://doi.org/10.2139/ssrn.6520190" target="_blank" rel="noopener">doi:10.2139/ssrn.6520190 ↗</a>
+              <button class="pub-abstract-toggle" aria-expanded="false" onclick="toggleAbstract(this)">Abstract</button>
+            </div>
+          </div>
+          <div class="pub-abstract">
+            <p>Objective measurement of stress is critical in populations exposed to chronic adversity, yet existing tools fail to distinguish cognitive effort from physiological arousal at the individual level. 101 healthy adults (87 women, 14 men; forest therapy program) underwent an auditory cognitive battery spanning resting state, working memory, emotional processing, and acute startle, with simultaneous single-channel prefrontal EEG. A subset (N=29) provided salivary cortisol; HRV was assessed at baseline and three hours post-session.</p>
+            <p>Linear mixed models revealed a dissociation between EEG-derived features: an <strong>arousal intensity composite (A0)</strong> established a graded hierarchy (Startle &gt; Emotional &gt; Mental Load &gt; Rest), while a <strong>cognitive engagement feature (ST4)</strong> increased uniformly across all active conditions regardless of demand type. A third feature reflecting <strong>cognitive-autonomic regulatory control (T2)</strong> was selectively suppressed during mental load but not during acute stress.</p>
+            <p>Higher baseline cortisol negatively predicted A0, consistent with cortisol-mediated attenuation of noradrenergic arousal reactivity, while positively predicting ST4 during working memory — suggesting compensatory effortful recruitment under chronic HPA load. VC9 and low-frequency spectral activity predicted reduced HRV three hours post-session; T2 predicted self-reported anger at the same time point.</p>
+            <p>These findings demonstrate that single-channel EEG can dissociate physiological arousal from cognitive effort, offering a scalable framework for personalized stress screening in populations exposed to prolonged instability.</p>
+          </div>
+        </li>
+
+        <li class="pub-item">
+          <div class="pub-header">
+            <div class="pub-num">Submitted · 2025</div>
+            <div class="pub-title">EEG-based assessment of tDCS effects on cognitive recovery in disorders of consciousness</div>
+            <p class="pub-citation">Molcho, L.*, Maimon, N. B.*, Intrator, N., Barron, J., Jaul, E., &amp; Meiron, O. (2025). <em>Manuscript submitted for publication.</em> (*Equal contribution.)</p>
+            <div class="pub-meta"><span class="pub-tag submitted">Under Review</span></div>
+          </div>
+        </li>
+
+      </ul>
+
+    </div><!-- /chapter -->
+  </main>
+</div>
+
+<script>
+function toggleAbstract(btn) {
+  const ab = btn.closest('.pub-item').querySelector('.pub-abstract');
+  const open = ab.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.textContent = open ? 'Hide abstract' : 'Abstract';
+}
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var rail = document.getElementById('rail');
+  var overlay = document.getElementById('nav-overlay');
+  function openNav(){
+    rail.classList.add('nav-open');
+    btn.classList.add('nav-open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav(){
+    rail.classList.remove('nav-open');
+    btn.classList.remove('nav-open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function(){ rail.classList.contains('nav-open') ? closeNav() : openNav(); });
+  overlay.addEventListener('click', closeNav);
+  rail.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(window.innerWidth > 900) return;
+      var href = a.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        e.preventDefault();
+        var target = document.querySelector(href);
+        closeNav();
+        if(target){
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+              target.scrollIntoView({behavior:'smooth',block:'start'});
+            });
+          });
+        }
+      } else {
+        closeNav();
+      }
+    });
+  });
+
+  /* Desktop rail collapse */
+  var shell = document.querySelector('.shell');
+  var toggleBtn = document.getElementById('rail-toggle-btn');
+  var reopenBtn = document.getElementById('rail-reopen-btn');
+  toggleBtn.addEventListener('click', function(){
+    shell.classList.add('rail-collapsed');
+    reopenBtn.classList.add('visible');
+  });
+  reopenBtn.addEventListener('click', function(){
+    shell.classList.remove('rail-collapsed');
+    reopenBtn.classList.remove('visible');
+  });
+})();
+</script>
+</body>
+</html>
