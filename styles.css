@@ -520,7 +520,7 @@ a:hover { border-bottom-color: var(--red-ink); }
   text-wrap: pretty;
 }
 .prose p.lead {
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--ink);
   font-weight: 500;
@@ -968,7 +968,7 @@ a:hover { border-bottom-color: var(--red-ink); }
 .score-huge {
   font-family: var(--f-sans);
   font-weight: 800;
-  font-size: 88px;
+  font-size: 48px;
   line-height: 0.9;
   color: var(--ink);
   letter-spacing: -0.01em;
