@@ -1918,7 +1918,7 @@ const NS_FIG_DATA = {
           "size": 11
         },
         "title": {
-          "text": "AS at rest (ST4)",
+          "text": "AS at rest",
           "font": {
             "size": 11
           }
@@ -5575,7 +5575,7 @@ const NS_FIG_DATA = {
         "linecolor": "#C7C1B3",
         "linewidth": 1,
         "title": {
-          "text": "NE (A0) at rest",
+          "text": "NE at rest",
           "font": {
             "size": 11
           }
@@ -6052,14 +6052,14 @@ const NS_FIG_DATA = {
           "size": 11
         },
         "title": {
-          "text": "NE (A0)",
+          "text": "NE",
           "font": {
             "size": 11
           }
         }
       },
       "title": {
-        "text": "Neural Effort (NE / A0) vs pre-session cortisol — by cognitive load",
+        "text": "Neural Effort (NE) vs pre-session cortisol — by cognitive load",
         "font": {
           "size": 12,
           "color": "#0A0A0C"
@@ -7740,14 +7740,14 @@ const NS_FIG_DATA = {
           "size": 11
         },
         "title": {
-          "text": "CA (L1)",
+          "text": "CA",
           "font": {
             "size": 11
           }
         }
       },
       "title": {
-        "text": "Cognitive Alertness (CA / L1) — rest vs high load by group",
+        "text": "Cognitive Alertness (CA) — rest vs high load by group",
         "font": {
           "size": 13,
           "color": "#0A0A0C"
@@ -8480,7 +8480,7 @@ const NS_FIG_DATA = {
           "size": 11
         },
         "title": {
-          "text": "ME at high load (VC9)",
+          "text": "ME at high load",
           "font": {
             "size": 11
           }
@@ -8504,7 +8504,7 @@ const NS_FIG_DATA = {
         }
       },
       "title": {
-        "text": "Mental Effort (ME / VC9) at high load vs reaction time",
+        "text": "Mental Effort (ME) at high load vs reaction time",
         "font": {
           "size": 13,
           "color": "#0A0A0C"
@@ -8520,13 +8520,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Healthy",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           1900.933,
           2165.818,
           1602.057
@@ -8542,7 +8540,6 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
-            null,
             68.295,
             71.212,
             44.925
@@ -8556,7 +8553,6 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
-          "",
           "Healthy RT<br>Load: Low<br>RT: 1900.933 ms",
           "Healthy RT<br>Load: Mid<br>RT: 2165.818 ms",
           "Healthy RT<br>Load: High<br>RT: 1602.057 ms"
@@ -8568,13 +8564,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Healthy (error)",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           0.073,
           0.219,
           0.256
@@ -8593,7 +8587,6 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
-          "",
           "Healthy Error<br>Load: Low<br>Error: 0.073",
           "Healthy Error<br>Load: Mid<br>Error: 0.219",
           "Healthy Error<br>Load: High<br>Error: 0.256"
@@ -8605,13 +8598,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "MCI",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           2563.665,
           2388.285,
           1530.329
@@ -8627,7 +8618,6 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
-            null,
             113.834,
             110.122,
             93.353
@@ -8641,7 +8631,6 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
-          "",
           "MCI RT<br>Load: Low<br>RT: 2563.665 ms",
           "MCI RT<br>Load: Mid<br>RT: 2388.285 ms",
           "MCI RT<br>Load: High<br>RT: 1530.329 ms"
@@ -8653,13 +8642,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "MCI (error)",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           0.138,
           0.387,
           0.339
@@ -8678,7 +8665,6 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
-          "",
           "MCI Error<br>Load: Low<br>Error: 0.138",
           "MCI Error<br>Load: Mid<br>Error: 0.387",
           "MCI Error<br>Load: High<br>Error: 0.339"
@@ -8690,13 +8676,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Mild Dementia",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           3503.205,
           3451.962,
           2035.292
@@ -8712,7 +8696,6 @@ const NS_FIG_DATA = {
         "error_y": {
           "type": "data",
           "array": [
-            null,
             288.747,
             273.531,
             639.004
@@ -8726,7 +8709,6 @@ const NS_FIG_DATA = {
         "showlegend": true,
         "yaxis": "y",
         "hovertext": [
-          "",
           "Mild Dementia RT<br>Load: Low<br>RT: 3503.205 ms",
           "Mild Dementia RT<br>Load: Mid<br>RT: 3451.962 ms",
           "Mild Dementia RT<br>Load: High<br>RT: 2035.292 ms"
@@ -8738,13 +8720,11 @@ const NS_FIG_DATA = {
         "mode": "lines+markers",
         "name": "Mild Dementia (error)",
         "x": [
-          "Rest",
           "Low",
           "Mid",
           "High"
         ],
         "y": [
-          null,
           0.259,
           0.488,
           0.406
@@ -8763,7 +8743,6 @@ const NS_FIG_DATA = {
         "showlegend": false,
         "yaxis": "y2",
         "hovertext": [
-          "",
           "Mild Dementia Error<br>Load: Low<br>Error: 0.259",
           "Mild Dementia Error<br>Load: Mid<br>Error: 0.488",
           "Mild Dementia Error<br>Load: High<br>Error: 0.406"
