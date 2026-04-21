@@ -8701,6 +8701,180 @@ const NS_FIG_DATA = {
       }
     }
   },
+  "me-sci-fig1": {
+    "traces": [
+      {
+        "type": "bar",
+        "x": [
+          "Rest",
+          "0-back",
+          "1-back",
+          "2-back",
+          "3-back"
+        ],
+        "y": [
+          53.092,
+          55.815,
+          56.358,
+          56.642,
+          57.341
+        ],
+        "error_y": {
+          "type": "data",
+          "array": [
+            0.455,
+            0.619,
+            0.523,
+            0.72,
+            0.957
+          ],
+          "visible": true,
+          "color": "#46464B",
+          "thickness": 1.5,
+          "width": 5
+        },
+        "marker": {
+          "color": [
+            "#888888",
+            "#3A7D50",
+            "#3A7D50",
+            "#3A7D50",
+            "#3A7D50"
+          ],
+          "opacity": [
+            0.55,
+            0.75,
+            0.82,
+            0.88,
+            0.95
+          ],
+          "line": {
+            "color": "#2E6642",
+            "width": 1
+          }
+        },
+        "hovertemplate": "%{x}<br>ME: %{y:.2f}<extra></extra>",
+        "showlegend": false
+      }
+    ],
+    "layout": {
+      "font": {
+        "family": "Inter, system-ui, sans-serif",
+        "size": 12,
+        "color": "#46464B"
+      },
+      "paper_bgcolor": "#FBFAF6",
+      "plot_bgcolor": "#FBFAF6",
+      "margin": {
+        "l": 60,
+        "r": 24,
+        "t": 36,
+        "b": 52
+      },
+      "hovermode": "closest",
+      "legend": {
+        "bgcolor": "rgba(251,250,246,0.88)",
+        "bordercolor": "#D8D3C8",
+        "borderwidth": 1,
+        "font": {
+          "size": 11
+        },
+        "x": 0.99,
+        "y": 0.99,
+        "xanchor": "right",
+        "yanchor": "top"
+      },
+      "xaxis": {
+        "showgrid": true,
+        "gridcolor": "#E6E1D8",
+        "gridwidth": 1,
+        "linecolor": "#C7C1B3",
+        "linewidth": 1,
+        "zeroline": false,
+        "tickfont": {
+          "size": 11
+        },
+        "title": {
+          "text": "Task level",
+          "font": {
+            "size": 11
+          }
+        }
+      },
+      "yaxis": {
+        "showgrid": true,
+        "gridcolor": "#E6E1D8",
+        "gridwidth": 1,
+        "linecolor": "#C7C1B3",
+        "linewidth": 1,
+        "zeroline": false,
+        "tickfont": {
+          "size": 11
+        },
+        "title": {
+          "text": "ME score (mean ± SEM)",
+          "font": {
+            "size": 11
+          }
+        },
+        "range": [
+          51.092,
+          62.169000000000004
+        ]
+      },
+      "title": {
+        "text": "ME working memory engagement across N-back tasks (healthy participants)",
+        "font": {
+          "size": 13,
+          "color": "#0A0A0C"
+        },
+        "x": 0
+      },
+      "annotations": [
+        {
+          "x": "0-back",
+          "y": 56.934,
+          "text": "***",
+          "showarrow": false,
+          "font": {
+            "size": 13,
+            "color": "#2E7D32"
+          }
+        },
+        {
+          "x": "1-back",
+          "y": 57.381,
+          "text": "***",
+          "showarrow": false,
+          "font": {
+            "size": 13,
+            "color": "#2E7D32"
+          }
+        },
+        {
+          "x": "2-back",
+          "y": 57.862,
+          "text": "***",
+          "showarrow": false,
+          "font": {
+            "size": 13,
+            "color": "#2E7D32"
+          }
+        },
+        {
+          "x": "3-back",
+          "y": 58.798,
+          "text": "***",
+          "showarrow": false,
+          "font": {
+            "size": 13,
+            "color": "#2E7D32"
+          }
+        }
+      ],
+      "bargap": 0.35
+    }
+  },
   "rt-sci-fig1": {
     "traces": [
       {
