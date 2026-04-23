@@ -529,7 +529,7 @@ a:hover { border-bottom-color: var(--red-ink); }
 }
 .prose p strong { color: var(--ink); font-weight: 600; }
 
-/* glossary terms */
+/* glossary terms — legacy CSS-only tooltips (data-gloss) */
 [data-gloss]{
   border-bottom: 1px dotted var(--stone);
   cursor: help;
@@ -556,6 +556,81 @@ a:hover { border-bottom-color: var(--red-ink); }
   white-space: normal;
   border-left: 2px solid var(--red);
 }
+
+/* ── JS tooltip system (ns-gloss / ns-ref) ───────────────────── */
+.ns-gloss {
+  border-bottom: 1px dotted var(--stone);
+  cursor: help;
+  color: inherit;
+}
+.ns-gloss:hover { color: var(--red-ink); border-bottom-color: var(--red-ink); }
+
+/* cite spans placed at end of figure captions */
+.ns-ref {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--paper-2);
+  color: var(--stone);
+  cursor: help;
+  vertical-align: middle;
+}
+.ns-ref:hover { background: var(--red-wash); color: var(--red-ink); }
+
+/* floating tooltip panel */
+#ns-tooltip {
+  position: absolute;
+  z-index: 9000;
+  pointer-events: none;
+  width: 300px;
+  padding: 11px 14px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  border-left: 3px solid var(--red);
+  border-radius: 0 4px 4px 0;
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  line-height: 1.5;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.32);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+#ns-tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+#ns-tooltip .tt-term {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 3px;
+}
+#ns-tooltip .tt-full {
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+#ns-tooltip .tt-desc {
+  color: rgba(247,244,239,0.78);
+  font-size: 12px;
+}
+#ns-tooltip .tt-pub-link {
+  display: block;
+  margin-top: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7ecba1;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+#ns-tooltip .tt-pub-link:hover { text-decoration: underline; }
 
 /* ────── RULES ────── */
 .rule {
